@@ -1,0 +1,28 @@
+header {
+    position: fixed;
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    height: 70px;
+}
+
+header .wrap {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.search {
+    display: flex;
+    flex: 3.5;
+    text-align: center;
+}
+
+.gnb {
+    flex: 0.6;
+    padding-top: 20px;
+}
+
+.gnb ul {
+    display: flex;
+}

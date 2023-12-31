@@ -1,0 +1,18 @@
+.div_fix {
+    border: 1px solid lightgray;
+    padding: 20px 20px 5px;
+    width: 283px;
+    position: fixed;
+}
+
+.recommend{
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.recommend .user_id{
+    flex: 6;
+    font-weight: 600;
+    padding-left: 10px;
+}

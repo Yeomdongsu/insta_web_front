@@ -1,0 +1,148 @@
+/**************************
+MAIN PAGE - COMMON
+**************************/
+.wrap {
+    width: 800px;
+    margin: 0 auto;
+}
+
+.txt_id {
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/**************************
+MAIN LAYOUT
+**************************/
+main.wrap {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 80px 0 100px;
+}
+
+.menu ul li {
+    position: relative;
+    display: inline-block;
+    line-height: 1.5;
+    padding-right: 12px;
+}
+
+.menu ul li:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 7px;
+    width: 2px;
+    height: 2px;
+    margin-top: -1px;
+    background: #b9b9b9;
+}
+
+.menu ul li a {
+    color: #999;
+    font-size: 0.8em;
+}
+
+.copyright {
+    color: #999;
+    font-size: 0.8em;
+    padding-top: 20px;
+}
+
+/**************************
+FEED BOARD
+**************************/
+div.feed_board {
+    flex: 6.5;
+    margin-right: 15px;
+}
+
+.feed {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    width: 500px;
+}
+
+.new_poster {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.new_poster .poster_id {
+    flex: 18;
+    margin-left: 10px;
+}
+
+.feed_imgs img{
+    /* width: 500px; */
+    width: 100%;
+    height: 100%;
+}
+
+.interactions {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 0 10px;
+    border-top: 1px solid lightgray;
+}
+
+.interactions .my_emotion {
+    display: flex;
+    flex: 2;
+    padding-left: 8px;
+}
+
+.feed_txt {
+    padding: 0 20px 10px;
+    border-bottom: 1px solid lightgray;
+}
+
+.feed_txt .txt_id {
+    margin-right: 5px;
+}
+
+.feed_txt .more {
+    color: #999;
+}
+
+.comments {
+    padding: 0px 20px 10px;
+    margin-top: 10px;
+}
+
+.list_comment {
+    margin-bottom: 10px;
+}
+
+.txt_comment {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.txt_comment > span {
+    flex: 9.8;
+}
+
+.txt_comment > span .txt_id {
+    margin-right: 5px;
+}
+
+.txt_comment > span span {
+    width: 100%;
+}
+
+.txt_comment button {
+    flex: 0.2;
+    color: #ddd;
+}
+
+.txt_comment button:hover {
+    color: #777;
+}
+
+.post_comment {
+    display: flex;
+    align-content: center;
+    margin-top: 15px;
+}    
