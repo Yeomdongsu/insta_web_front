@@ -64,7 +64,6 @@ function Login(){
         })
         .then((res) => {
             const jwtToken = res.data.access_token;
-            // console.log(res.data);
             localStorage.setItem("jwtToken", jwtToken);
             localStorage.setItem("nickname", res.data.nickname);
             axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;  
