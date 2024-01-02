@@ -16,7 +16,8 @@ MAIN LAYOUT
 **************************/
 main.wrap {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: column;
+    /* flex-direction: row-reverse; */
     padding: 80px 0 100px;
 }
 
