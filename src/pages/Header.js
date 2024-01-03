@@ -8,7 +8,7 @@ import axios from "axios";
 function Header(){
 
     const nav = useNavigate();
-
+    const jwtToken = localStorage.getItem("jwtToken");
     let myNickname = localStorage.getItem("nickname");
 
     return (
@@ -16,8 +16,8 @@ function Header(){
             <div className="wrap">
                 <div className="search">
                     <div>
-                        <FontAwesomeIcon icon={faInstagram} style={{fontSize:"35px", cursor:"pointer"}} onClick={() => nav("/")}/>
-                        <span style={{fontSize:"23px", fontWeight:"400", padding:"10px"}} onClick={() => nav("/main")}>Dongsutagram</span>
+                        <FontAwesomeIcon icon={faInstagram} style={{fontSize:"35px", cursor:"pointer"}} onClick={() => nav("/main")}/>
+                        <span style={{fontSize:"23px", fontWeight:"400", padding:"10px"}}>Dongsutagram</span>
                     </div>
                 </div>
                 <nav className="gnb">
@@ -32,9 +32,9 @@ function Header(){
                     <div style={{color : "red", textAlign:"center"}} onClick={() => {
                         let confirm = window.confirm("로그아웃 하시겠습니까?");
                         if (confirm == true){
-                            axios.delete("https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/user/logout")
+                            axios.delete("https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/user/logout",
+                            { headers: { Authorization: `Bearer ${jwtToken}`}})
                             .then((res) => {
-                                delete axios.defaults.headers.common['Authorization'];
                                 localStorage.clear();
                                 alert("로그아웃 되셨습니다.");
                                 nav("/");

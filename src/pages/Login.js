@@ -66,8 +66,6 @@ function Login(){
             const jwtToken = res.data.access_token;
             localStorage.setItem("jwtToken", jwtToken);
             localStorage.setItem("nickname", res.data.nickname);
-            axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;  
-            console.log(axios.defaults.headers.common["Authorization"])
             alert("로그인 성공!");
             nav("/main");
         })
@@ -84,7 +82,7 @@ function Login(){
                     userLogin();
                 }}>
                     <div className="logo">
-                        <FontAwesomeIcon icon={faCircleUser} onClick={() => nav("/main")}/>
+                        <FontAwesomeIcon icon={faCircleUser}/>
                     </div>
                     <div className="input-group">
                         <input type="email" placeholder="Email" name="email" value={formData2.email} onChange={handleChange2} />

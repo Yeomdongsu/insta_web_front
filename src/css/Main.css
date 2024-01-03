@@ -56,6 +56,7 @@ FEED BOARD
 div.feed_board {
     flex: 6.5;
     margin-right: 15px;
+    margin-bottom: 20px;
 }
 
 .feed {
@@ -95,8 +96,7 @@ div.feed_board {
 }
 
 .feed_txt {
-    padding: 0 20px 10px;
-    border-bottom: 1px solid lightgray;
+    padding: 0 20px;
 }
 
 .feed_txt .txt_id {

@@ -14,17 +14,22 @@ function Main(){
 
     const nav = useNavigate();
     let [commentModal, setCommentModal] = useState(false);
-    let [likeList, setLikeList] = useState(false);
+
+    let [likeList, setLikeList] = useState([]);
+    let [likeListModal, setLikeListModal] = useState(false);
 
     let [postList, setPostList] = useState([]);
-    // console.log(postList);
+
+    const jwtToken = localStorage.getItem("jwtToken");
 
     useEffect(() => {
+        if (jwtToken == null) return nav("/");
         fetchData();
     }, []);
 
     function fetchData(){
-        axios.get("https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/posting?offset=0&limit=25")
+        axios.get("https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/posting?offset=0&limit=25", 
+        { headers: { Authorization: `Bearer ${jwtToken}`}})
         .then((res) => {
             // console.log(res.data.items);
             const postData = res.data.items.map(item => ({
@@ -36,11 +41,12 @@ function Main(){
                 createdAt: item.createdAt,
                 favoriteCnt: item.favoriteCnt,
                 isFavorite: item.isFavorite,
+                commentCnt: item.commentCnt,
             }));
             setPostList(postData);
         })
         .catch((e) => {
-            alert(e.response.data.error);
+            console.log(e.response.data.error);
         });
     }
 
@@ -49,7 +55,12 @@ function Main(){
             <Header />
             <main className="container wrap">
                 <Main2 />   
-                {
+                {postList.length === 0 ? (
+                    <div>
+                        <div style={{margin:"10px 0 10px 60px", fontWeight:"600", color:"black", fontSize:"18px"}}>팔로잉한 회원이 없거나 글이 존재하지 않습니다.</div>
+                        <img src={process.env.PUBLIC_URL + '/follow_null.jpg'} style={{height:"500px"}} onClick={() => alert("멍멍")}/>
+                    </div>
+                ) : (
                     postList.map((post, i) => {
                         return (
                             <div className="feed_board" key={i}>
@@ -67,13 +78,13 @@ function Main(){
                                         <div className="my_emotion">
                                             {post.isFavorite == 0 ? (
                                                 <FontAwesomeIcon icon={faHeart} style={{fontSize:"22px", paddingRight:"12px", cursor:"pointer"}} onClick={() => {
-                                                    axios.post(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/favorite/${post.postId}`)
+                                                    axios.post(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/favorite/${post.postId}`, {}, { headers: { Authorization: `Bearer ${jwtToken}`}})
                                                     .then((res) => {console.log(res.data.result); fetchData();})
-                                                    .catch((e) => alert(e.response.data.error));
+                                                    .catch((e) => console.log(e));
                                                 }}/>
                                             ) : (
                                                 <FontAwesomeIcon icon={faHeartCircleCheck} style={{fontSize:"22px", paddingRight:"12px", cursor:"pointer"}} onClick={() => {
-                                                    axios.delete(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/favorite/${post.postId}`)
+                                                    axios.delete(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/favorite/${post.postId}`, { headers: { Authorization: `Bearer ${jwtToken}`}})
                                                     .then((res) => {console.log(res.data.result); fetchData();})
                                                     .catch((e) => alert(e.response.data.error));
                                                 }}/>
@@ -89,9 +100,17 @@ function Main(){
                                         {post.favoriteCnt == 0 ? (
                                             <span className="like_num txt_id">좋아요 {post.favoriteCnt}개</span>
                                         ) : (
-                                            <span className="like_num txt_id" onClick={() => setLikeList(!likeList)}>{post.favoriteCnt}명이 좋아합니다.</span>
+                                            <span className="like_num txt_id" onClick={() => {
+                                                axios.get(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/favorite/${post.postId}`,
+                                                { headers: { Authorization: `Bearer ${jwtToken}`}})
+                                                .then((res) => {
+                                                    setLikeList(res.data.like_list);
+                                                })
+                                                .catch((e) => console.log(e));
+                                                setLikeListModal(!likeListModal);
+                                            }}>{post.favoriteCnt}명이 좋아합니다.</span>
                                         )}
-                                        {likeList && <LikeList show={likeList} onHide={() => setLikeList(!likeList)}/>}
+                                        {likeListModal && <LikeList show={likeListModal} onHide={() => setLikeListModal(!likeListModal)} likeList={likeList} jwtToken={jwtToken}/>}
                                     </p>
                                 
                                 {/* 게시글 내용 부분 */}
@@ -102,13 +121,10 @@ function Main(){
                                 </section>
 
                                 {/* 댓글 부분 */}
-                                {/* <div className="comments">
+                                <div className="comments">
                                     <div id="listComment" className="list_comment">
                                         <p className="txt_comment">
-                                            <span>
-                                                <span href="#n" className="txt_id">follow ID</span>
-                                                <span>나는 냥냥</span>
-                                            </span>
+                                            <span className="txt_id" style={{color:"gray", fontSize:"14px"}}>댓글 {post.commentCnt}개 모두 보기</span>
                                         </p>
                                     </div>
                                     <form id="post" className="post_comment">
@@ -116,14 +132,13 @@ function Main(){
                                         <div style={{cursor:"pointer", fontSize:"15px", color:"gray"}} onClick={() => setCommentModal(!commentModal)}>댓글 달기...</div>
                                     </form> 
                                     {commentModal && <MainComment commentModal={commentModal} setCommentModal={setCommentModal}/>}
-                                </div> */}
+                                </div>
                             </article>
                         </div>
 
                         );
                     })
-                }
-                
+                )}
             </main>
         </>
     );

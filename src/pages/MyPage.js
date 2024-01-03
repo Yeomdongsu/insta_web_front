@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './../css/MyPage.css'; 
 import PostList from './PostList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,14 +8,22 @@ import MyPageEditModal from './MyPageEditModal';
 import MyPagePostingModal from './MyPagePostingModal';
 import Follower from './Follower';
 import Following from './Following';
+import { useNavigate } from 'react-router-dom';
 
 function MyPage() {
+
+    const nav = useNavigate();
+    const jwtToken = localStorage.getItem("jwtToken");
 
     const [editModal, setEditModal] = useState(false);
     const [postingModal, setPostingModal] = useState(false);
 
     const [follower, setFollow] = useState(false);
     const [following, setFollowing] = useState(false);
+
+    useEffect(() => {
+        if (jwtToken == null) return nav("/");
+    }, []);
 
     return (
         <>
