@@ -1,38 +1,38 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./../css/Main2.css";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
-// import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
+import axios from "axios";
 
-function Main2(){
+function Main2(props){
+
+    // console.log(props.userList);
     return (
         <div style={{width:"100%"}}>
             <div className="div_fix">
                 <h4 style={{ margin:"0 0 20px 0", color:"red"}}>회원님을 위한 추천</h4>
-                <div className="recommend">
-                    <FontAwesomeIcon icon={faCircleUser} style={{fontSize:"23px"}}/>
-                    <span className="user_id">회원 13223</span>
-                    <span style={{color:"blue", fontSize:"15px"}} onClick={() => {
-                        let confirm = window.confirm("팔로우 하시겠습니까?");
-                        if (confirm == true){
-                            
-                        }
-                    }}>팔로우</span>
-                </div>
-                <div className="recommend">
-                    <FontAwesomeIcon icon={faCircleUser} style={{fontSize:"23px"}}/>
-                    <span className="user_id">회원 1322323</span>
-                    <span style={{color:"blue", fontSize:"15px"}}>팔로우</span>
-                </div>
-                <div className="recommend">
-                    <FontAwesomeIcon icon={faCircleUser} style={{fontSize:"23px"}}/>
-                    <span className="user_id">회원 1332378223</span>
-                    <span style={{color:"blue", fontSize:"15px"}}>팔로우</span>
-                </div>
-                <div className="recommend">
-                    <FontAwesomeIcon icon={faCircleUser} style={{fontSize:"23px"}}/>
-                    <span className="user_id">회원 1332378223</span>
-                    <span style={{color:"blue", fontSize:"15px"}}>팔로우</span>
-                </div>       
+                {
+                    props.userList.map((user, i) => {
+                        return (
+                            <div className="recommend" key={i}>
+                                <FontAwesomeIcon icon={faCircleUser} style={{fontSize:"23px"}}/>
+                                <span className="user_id">{user.nickname}</span>
+                                <span style={{color:"blue", fontSize:"15px"}} onClick={() => {
+                                    let confirm = window.confirm("팔로우 하시겠습니까?");
+                                    if (confirm == false) return;
+                
+                                    axios.post(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/follow/${user.id}`,
+                                    {}, { headers: { Authorization: `Bearer ${props.jwtToken}`}})
+                                    .then((res) => {
+                                      console.log(res.data);
+                                      props.fetchDataMain2();
+                                      props.fetchData();
+                                    })
+                                    .catch((e) => alert(e.response.data.error));
+                                }}>팔로우</span>
+                            </div>
+                        );
+                    })
+                }                  
             </div>
         </div>
     );

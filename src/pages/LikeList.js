@@ -27,14 +27,42 @@ function LikeList(props) {
               <div style={{marginBottom:"15px", display:"flex", alignItems:"center"}} key={i}>
                 <FontAwesomeIcon icon={faCircleUser} style={{fontSize:"30px"}}/>
                 <span style={{margin:"0 10px 0 30px", fontSize:"17px", flex:"1", textAlign:"center"}}>{user.nickname}</span>
-                <span style={{color:"blue", fontSize:"15px"}} onClick={() => {
-                  axios.post(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/follow/${user.userId}`,
-                  {}, { headers: { Authorization: `Bearer ${props.jwtToken}`}})
-                  .then((res) => {
-                    console.log(res.data);
-                  })
-                  .catch((e) => alert(e.response.data.error));
-                }}>팔로우</span>
+                {user.isFollow == 0 ? (
+                  <span style={{color:"blue", fontSize:"15px"}} onClick={() => {
+                    let confirm = window.confirm("팔로우 하시겠습니까?");
+                    if (confirm == false) return;
+
+                    axios.post(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/follow/${user.userId}`,
+                    {}, { headers: { Authorization: `Bearer ${props.jwtToken}`}})
+                    .then((res) => {
+                      console.log(res.data);
+                      const updatedLikeList = props.likeList.map((item) =>
+                      item.userId === user.userId ? { ...item, isFollow: 1 } : item
+                      );
+                      props.setLikeList(updatedLikeList);
+                      props.fetchData();
+                    })
+                    .catch((e) => alert(e.response.data.error));
+                  }}>팔로우</span>
+                ) : (
+                  <span style={{color:"red", fontSize:"15px"}} onClick={() => {
+                    let confirm = window.confirm("팔로잉을 취소 하시겠습니까?");
+                    if (confirm == false) return;
+                    
+                    axios.delete(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/follow/${user.userId}`,
+                    { headers: { Authorization: `Bearer ${props.jwtToken}`}})
+                    .then((res) => {
+                      console.log(res.data);
+                      const updatedLikeList = props.likeList.map((item) =>
+                      item.userId === user.userId ? { ...item, isFollow: 0 } : item
+                      );
+                      props.setLikeList(updatedLikeList);
+                      props.fetchData();
+                    })
+                    .catch((e) => console.log(e.response));
+                  }}>팔로잉</span>
+                )}
+                
               </div>
             );
           })

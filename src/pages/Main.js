@@ -9,23 +9,45 @@ import { useEffect, useState } from "react";
 import MainComment from "./MainComment";
 import LikeList from "./LikeList";
 import axios from "axios";
+import MainCommentListModal from "./MainCommentListModal";
 
 function Main(){
 
     const nav = useNavigate();
     let [commentModal, setCommentModal] = useState(false);
+    let [commentListModal, setCommentListModal] = useState(false);
 
     let [likeList, setLikeList] = useState([]);
     let [likeListModal, setLikeListModal] = useState(false);
 
     let [postList, setPostList] = useState([]);
+    let [userList, setUserList] = useState([]);
+
+    let [commentList, setCommentList] = useState([]);
 
     const jwtToken = localStorage.getItem("jwtToken");
 
     useEffect(() => {
         if (jwtToken == null) return nav("/");
         fetchData();
+        fetchDataMain2();
     }, []);
+
+    function fetchDataMain2(){
+        axios.get("https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/user/login", 
+        { headers: { Authorization: `Bearer ${jwtToken}`}})
+        .then((res) => {
+            const userData = res.data.userList.map(user => ({
+                id: user.id,
+                nickname: user.nickname,
+            }))
+            setUserList(userData);
+            
+        })
+        .catch((e) => {
+            console.log(e.response.data.error);
+        });
+    }
 
     function fetchData(){
         axios.get("https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/posting?offset=0&limit=25", 
@@ -54,7 +76,7 @@ function Main(){
         <>
             <Header />
             <main className="container wrap">
-                <Main2 />   
+                <Main2 fetchData={fetchData} fetchDataMain2={fetchDataMain2} userList={userList} setUserList={setUserList} jwtToken={jwtToken}/>   
                 {postList.length === 0 ? (
                     <div>
                         <div style={{margin:"10px 0 10px 60px", fontWeight:"600", color:"black", fontSize:"18px"}}>팔로잉한 회원이 없거나 글이 존재하지 않습니다.</div>
@@ -90,7 +112,16 @@ function Main(){
                                                 }}/>
                                             )}
                                             
-                                            <FontAwesomeIcon icon={faComment} style={{fontSize:"22px", cursor:"pointer"}}/>
+                                            <FontAwesomeIcon icon={faComment} style={{fontSize:"22px", cursor:"pointer"}} onClick={() => {
+                                                axios.get(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/comment/${post.postId}`,
+                                                { headers: { Authorization: `Bearer ${jwtToken}`}})
+                                                .then((res) => {
+                                                    setCommentList(res.data.commentList);
+                                                })
+                                                .catch((e) => console.log(e));
+
+                                                setCommentListModal(!commentListModal);
+                                            }}/>
                                         </div>
                                     </div>
                                     
@@ -110,7 +141,7 @@ function Main(){
                                                 setLikeListModal(!likeListModal);
                                             }}>{post.favoriteCnt}명이 좋아합니다.</span>
                                         )}
-                                        {likeListModal && <LikeList show={likeListModal} onHide={() => setLikeListModal(!likeListModal)} likeList={likeList} jwtToken={jwtToken}/>}
+                                        {likeListModal && <LikeList show={likeListModal} onHide={() => setLikeListModal(!likeListModal)} likeList={likeList} setLikeList={setLikeList} jwtToken={jwtToken} fetchData={fetchData}/>}
                                     </p>
                                 
                                 {/* 게시글 내용 부분 */}
@@ -124,14 +155,24 @@ function Main(){
                                 <div className="comments">
                                     <div id="listComment" className="list_comment">
                                         <p className="txt_comment">
-                                            <span className="txt_id" style={{color:"gray", fontSize:"14px"}}>댓글 {post.commentCnt}개 모두 보기</span>
+                                            <span className="txt_id" style={{color:"gray", fontSize:"14px"}} onClick={() => {
+                                                axios.get(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/comment/${post.postId}`,
+                                                { headers: { Authorization: `Bearer ${jwtToken}`}})
+                                                .then((res) => {
+                                                    setCommentList(res.data.commentList);
+                                                })
+                                                .catch((e) => console.log(e));
+
+                                                setCommentListModal(!commentListModal);
+                                            }}>댓글 {post.commentCnt}개 모두 보기</span>
                                         </p>
+                                        {commentListModal && <MainCommentListModal show={commentListModal} onHide={() => setCommentListModal(!commentListModal)} jwtToken={jwtToken} fetchData={fetchData} commentList={commentList} setCommentList={setCommentList} />}
                                     </div>
                                     <form id="post" className="post_comment">
                                         <FontAwesomeIcon icon={faUser} style={{fontSize:"18px", paddingRight:"7px"}}/>
                                         <div style={{cursor:"pointer", fontSize:"15px", color:"gray"}} onClick={() => setCommentModal(!commentModal)}>댓글 달기...</div>
                                     </form> 
-                                    {commentModal && <MainComment commentModal={commentModal} setCommentModal={setCommentModal}/>}
+                                    {commentModal && <MainComment commentModal={commentModal} setCommentModal={setCommentModal} jwtToken={jwtToken} fetchData={fetchData} postId={post.postId}/>}
                                 </div>
                             </article>
                         </div>
