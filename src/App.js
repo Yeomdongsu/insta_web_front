@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/main' element={<Main />} />
-        <Route path='mypage' element={<MyPage />}/>
+        <Route path='/myPage/:userId' element={<MyPage />}/>
         <Route path='*' element={<div style={{paddingTop:"100px", textAlign:"center", fontSize:"30px"}}>없는 페이지입니다.</div>} />
       </Routes>
     </>

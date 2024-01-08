@@ -8,10 +8,13 @@ import MyPageEditModal from './MyPageEditModal';
 import MyPagePostingModal from './MyPagePostingModal';
 import Follower from './Follower';
 import Following from './Following';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 
-function MyPage() {
+function MyPage(props) {
 
+    let {userId} = useParams();
+    
     const nav = useNavigate();
     const jwtToken = localStorage.getItem("jwtToken");
 
@@ -21,9 +24,37 @@ function MyPage() {
     const [follower, setFollow] = useState(false);
     const [following, setFollowing] = useState(false);
 
+    const [userInfo, setUserInfo] = useState([]);
+
     useEffect(() => {
         if (jwtToken == null) return nav("/");
+
+        myPageInfo();
     }, []);
+
+    function myPageInfo(){
+        axios.get(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/myPage/${userId}`, 
+        { headers: { Authorization: `Bearer ${jwtToken}`}})
+        .then((res) => {
+            console.log(res.data.items);
+            const userData = res.data.items.map(user => ({
+                userId: user.userId,
+                userNickname: user.userNickname,
+                userEmail: user.userEmail,
+                postingId: user.postingId,
+                imageUrl: user.imageUrl,
+                content: user.content,
+                createdAt: new Date(user.createdAt + 'Z').toLocaleString('en-US', { timeZone: 'Asia/Seoul' }), // 한국 시간대로 변환
+                postingCnt: user.postingCnt,
+                followingCnt: user.followingCnt,
+                followersCnt: user.followersCnt,
+            }))
+            setUserInfo(userData);
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+    }
 
     return (
         <>
@@ -35,16 +66,16 @@ function MyPage() {
                     <div className="user-stats">
                         <div style={{padding:"35px 35px 35px 30px"}}>
                             <strong>게시물</strong>
-                            <p style={{cursor:"pointer"}}>100</p>
+                            <p>{userInfo.length > 0 && userInfo[0].postingCnt}</p>
                         </div>
                         <div style={{padding:"35px", cursor:"pointer"}} onClick={() => setFollow(!follower)}>
                             <strong>팔로워</strong>
-                            <p>500</p>
+                            <p>{userInfo.length > 0 && userInfo[0].followersCnt}</p>
                         </div>
                         {follower && <Follower show={follower} onHide={() => setFollow(!follower)}/>}
                         <div style={{padding:"35px", cursor:"pointer"}} onClick={() => setFollowing(!following)}>
                             <strong>팔로잉</strong>
-                            <p>200</p>
+                            <p>{userInfo.length > 0 && userInfo[0].followingCnt}</p>
                         </div>
                         {following && <Following show={following} onHide={() => setFollowing(!following)}/>}
                     </div>
@@ -55,13 +86,8 @@ function MyPage() {
                         {postingModal && <MyPagePostingModal show={postingModal} onHide={() => setPostingModal(!postingModal)}/>}
                     </div>
                 </div>
-
-                <div className="user-info">
-                    <p className="bio">소개</p>
-                </div>  
-
                 <div className="posts">
-                    <PostList />
+                    <PostList userInfo={userInfo} />
                 </div>
             </div>
         </>

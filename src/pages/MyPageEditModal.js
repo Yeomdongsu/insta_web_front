@@ -19,7 +19,8 @@ function MyPageEditModal(props) {
         <div style={{display:"table-caption"}}>
             <div>Email<input disabled size={57} style={{marginTop:"5px", marginBottom:"5px"}}/></div>
             <div>Nickname<input size={57} style={{marginTop:"5px", marginBottom:"5px"}}/></div>
-            <div>소개<input size={57} style={{marginTop:"5px", marginBottom:"5px"}}/></div>
+            <div>비밀번호<input size={57} style={{marginTop:"5px", marginBottom:"5px"}}/></div>
+            <div>비밀번호 확인<input size={57} style={{marginTop:"5px", marginBottom:"5px"}}/></div>
         </div>
       </Modal.Body>
       <Modal.Footer>

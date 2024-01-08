@@ -10,6 +10,7 @@ function Header(){
     const nav = useNavigate();
     const jwtToken = localStorage.getItem("jwtToken");
     let myNickname = localStorage.getItem("nickname");
+    let userId = localStorage.getItem("id");
 
     return (
         <header>
@@ -23,7 +24,7 @@ function Header(){
                 <nav className="gnb">
                     <ul>
                         <FontAwesomeIcon icon={faHeart} style={{fontSize:"25px", paddingRight:"20px", cursor:"pointer"}}/>
-                        <FontAwesomeIcon icon={faUser} style={{fontSize:"25px", paddingRight:"20px", cursor:"pointer"}} onClick={() => nav("/myPage")}/>
+                        <FontAwesomeIcon icon={faUser} style={{fontSize:"25px", paddingRight:"20px", cursor:"pointer"}} onClick={() => nav(`/myPage/${userId}`)}/>
                     </ul>
                 </nav>
 

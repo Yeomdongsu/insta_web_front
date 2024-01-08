@@ -7,7 +7,7 @@
   .post {
     border: 1px solid #ccc;
     border-radius: 8px;
-    overflow: hidden;
+    /* overflow: hidden; */
   }
   
   .post-image {
@@ -19,5 +19,7 @@
   .post-caption {
     padding: 0 10px;
     font-size: 14px;
+    font-weight: 700;
+    margin-top: 5px;
   }
   

@@ -36,6 +36,13 @@ function Login(){
         axios.post("https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/user/register", formData)
         .then((res) => {
             alert("회원가입 성공!");
+            setFormData({
+                nickname: '',
+                email: '',
+                password: '',
+                retype_password: ''
+            });
+            handleSignUpClick();
         })
         .catch((e) => {
             alert(e.response.data.error);
@@ -66,6 +73,7 @@ function Login(){
             const jwtToken = res.data.access_token;
             localStorage.setItem("jwtToken", jwtToken);
             localStorage.setItem("nickname", res.data.nickname);
+            localStorage.setItem("id", res.data.id);
             alert("로그인 성공!");
             nav("/main");
         })
