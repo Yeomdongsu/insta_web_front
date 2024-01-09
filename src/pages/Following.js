@@ -1,9 +1,15 @@
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { useNavigate } from 'react-router-dom';
 
 function Following(props) {
+
+  const nav = useNavigate();
+  let jwtToken = localStorage.getItem("jwtToken");
+
   return (
     <Modal
       {...props}
@@ -18,16 +24,27 @@ function Following(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div style={{marginBottom:"15px"}}>
-            <FontAwesomeIcon icon={faCircleUser} style={{fontSize:"30px"}}/>
-            <span style={{margin:"0 10px 0 30px", fontSize:"17px"}}>회원 1332378223</span>
-            <span style={{color:"red", fontSize:"15px", marginLeft:"20px"}}>팔로우</span>
-        </div>
-        <div style={{marginBottom:"15px"}}>
-            <FontAwesomeIcon icon={faCircleUser} style={{fontSize:"30px"}}/>
-            <span style={{margin:"0 10px 0 30px", fontSize:"17px"}}>회원 1332378223</span>
-            <span style={{color:"blue", fontSize:"15px", marginLeft:"20px"}}>팔로우</span>
-        </div>
+        {
+          props.myFollowingList.map((following, i) => {
+            return (
+              <div style={{marginBottom:"15px", display:"flex", alignItems:"center"}} key={i}>
+                  <FontAwesomeIcon icon={faCircleUser} style={{fontSize:"30px"}}/>
+                  <span style={{margin:"0 10px 0 30px", fontSize:"17px", flex:"1", textAlign:"center"}} onClick={() => nav(`/myPage/${following.id}`)}>{following.nickname}</span>
+                  <span style={{color:"red", fontSize:"15px", cursor:"pointer"}} onClick={() => {
+                    let confirm = window.confirm("팔로잉을 취소 하시겠습니까?");
+                    if (confirm == false) return;
+                    
+                    axios.delete(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/follow/${following.id}`,
+                    { headers: { Authorization: `Bearer ${jwtToken}`}})
+                    .then((res) => {
+                      props.followingList();
+                    })
+                    .catch((e) => console.log(e.response.data.error));
+                  }}>팔로잉</span>
+              </div>
+            );
+          })
+        }
       </Modal.Body>
       <Modal.Footer>
         <Button variant="dark" onClick={props.onHide}>닫기</Button>

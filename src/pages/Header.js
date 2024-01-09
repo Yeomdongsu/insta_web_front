@@ -18,7 +18,7 @@ function Header(){
                 <div className="search">
                     <div>
                         <FontAwesomeIcon icon={faInstagram} style={{fontSize:"35px", cursor:"pointer"}} onClick={() => nav("/main")}/>
-                        <span style={{fontSize:"23px", fontWeight:"400", padding:"10px"}}>Dongsutagram</span>
+                        <span style={{fontSize:"23px", fontWeight:"400", padding:"10px", cursor:"pointer"}} onClick={() => nav("/main")}>Dongsutagram</span>
                     </div>
                 </div>
                 <nav className="gnb">
@@ -29,7 +29,7 @@ function Header(){
                 </nav>
 
                 <div style={{marginLeft:"3px"}}>
-                    <span style={{color:"blue"}}>{myNickname}</span>님 환영합니다.
+                    <span style={{color:"blue", cursor:"pointer"}} onClick={() => nav(`/myPage/${userId}`)}>{myNickname}</span>님 환영합니다.
                     <div style={{color : "red", textAlign:"center"}} onClick={() => {
                         let confirm = window.confirm("로그아웃 하시겠습니까?");
                         if (confirm == true){

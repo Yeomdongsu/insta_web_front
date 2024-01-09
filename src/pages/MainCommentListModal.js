@@ -4,12 +4,14 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { useNavigate } from 'react-router-dom';
 
 function MainCommentListModal(props) {
 
     // console.log(props.commentList);
     // console.log(props.postId);
     const nickname = localStorage.getItem("nickname")
+    const nav = useNavigate();
 
     return (
       <Modal
@@ -31,7 +33,7 @@ function MainCommentListModal(props) {
                         <div style={{ marginBottom: "15px", display: "flex", alignItems: "center"}} key={i}>
                             <FontAwesomeIcon icon={faCircleUser} style={{ fontSize: "60px" }} />
                             <div style={{ marginLeft: "20px" }}>
-                                <span style={{ fontSize: "17px", fontWeight: "600", color:"blue" }}>{comment.nickname}</span>
+                                <span style={{ fontSize: "17px", fontWeight: "600", color:"blue", cursor:"pointer" }} onClick={() => nav(`/myPage/${comment.userId}`)}>{comment.nickname}</span>
                                 <span style={{ marginLeft: "10px", fontSize: "14px", color: "gray" }}>{comment.createdAt}</span>
                                 <p style={{ marginTop: "5px", fontSize: "15px", fontWeight:"600" }}>{comment.comment}</p>
                             </div>
