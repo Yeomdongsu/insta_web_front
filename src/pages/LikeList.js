@@ -40,7 +40,11 @@ function LikeList(props) {
                       item.userId === user.userId ? { ...item, isFollow: 1 } : item
                       );
                       props.setLikeList(updatedLikeList);
+
                       props.fetchData();
+                      props.fetchDataMain2();
+                      props.onHide();
+
                     })
                     .catch((e) => alert(e.response.data.error));
                   }}>팔로우</span>
@@ -58,6 +62,7 @@ function LikeList(props) {
                       );
                       props.setLikeList(updatedLikeList);
                       props.fetchData();
+                      props.fetchDataMain2();
                     })
                     .catch((e) => console.log(e.response));
                   }}>팔로잉</span>

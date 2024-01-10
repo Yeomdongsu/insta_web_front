@@ -26,10 +26,11 @@ function MyPageEditModal(props) {
       <Modal.Footer>
         <Button variant="dark" onClick={props.onHide}>닫기</Button>
         <Button onClick={() => {
-            let confirm = window.confirm("수정하시겠습니까?");
-            if (confirm == true){
-                props.onHide();
-            } 
+            window.alert("미완성"); props.onHide();
+            // let confirm = window.confirm("수정하시겠습니까?");
+            // if (confirm == true){
+            //     props.onHide();
+            // } 
         }}>수정</Button>  
       </Modal.Footer>
     </Modal>

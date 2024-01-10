@@ -10,6 +10,7 @@ import Follower from './Follower';
 import Following from './Following';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import PostDetailModal from './PostDetailModal';
 
 function MyPage(props) {
 
@@ -17,6 +18,7 @@ function MyPage(props) {
     
     const nav = useNavigate();
     const jwtToken = localStorage.getItem("jwtToken");
+    const myId = localStorage.getItem("id");
 
     const [editModal, setEditModal] = useState(false);
     const [postingModal, setPostingModal] = useState(false);
@@ -33,8 +35,6 @@ function MyPage(props) {
         if (jwtToken == null) return nav("/");
 
         myPageInfo();
-        // followerList();
-        // followingList();
     }, [[], myFollowerList, myFollowingList]);
 
     function myPageInfo(){
@@ -101,28 +101,33 @@ function MyPage(props) {
                 <div className="profile">
                     <FontAwesomeIcon icon={faCircleUser} className='profile-image'/>
                     {/* 사용자 통계 */}
-                    <div className="user-stats">
-                        <div style={{padding:"35px 35px 35px 30px"}}>
-                            <strong>게시물</strong>
-                            <p>{userInfo.length > 0 && userInfo[0].postingCnt}</p>
+                    <div>
+                        <div style={{fontWeight:"600", fontSize:"20px"}}>{userInfo.length > 0 && userInfo[0].userEmail}</div>
+                        <div className="user-stats">
+                            <div style={{padding:"25px 35px 35px 25px"}}>
+                                <strong>게시물</strong>
+                                <p>{userInfo.length > 0 && userInfo[0].postingCnt}</p>
+                            </div>
+                            <div style={{padding:"25px 35px 35px 25px", cursor:"pointer"}} onClick={() => {followerList(); setFollow(!follower);}}>
+                                <strong>팔로워</strong>
+                                <p>{userInfo.length > 0 && userInfo[0].followersCnt}</p>
+                            </div>
+                            {follower && <Follower show={follower} onHide={() => setFollow(!follower)} myFollowerList={myFollowerList} followerList={followerList} userId={userId}/>}
+                            <div style={{padding:"25px 35px 35px 25px", cursor:"pointer"}} onClick={() => {followingList(); setFollowing(!following);}}>
+                                <strong>팔로잉</strong>
+                                <p>{userInfo.length > 0 && userInfo[0].followingCnt}</p>
+                            </div>
+                            {following && <Following show={following} onHide={() => setFollowing(!following)} myFollowingList={myFollowingList} followingList={followingList} userId={userId}/>}
                         </div>
-                        <div style={{padding:"35px", cursor:"pointer"}} onClick={() => {followerList(); setFollow(!follower);}}>
-                            <strong>팔로워</strong>
-                            <p>{userInfo.length > 0 && userInfo[0].followersCnt}</p>
-                        </div>
-                        {follower && <Follower show={follower} onHide={() => setFollow(!follower)} myFollowerList={myFollowerList} followerList={followerList}/>}
-                        <div style={{padding:"35px", cursor:"pointer"}} onClick={() => {followingList(); setFollowing(!following);}}>
-                            <strong>팔로잉</strong>
-                            <p>{userInfo.length > 0 && userInfo[0].followingCnt}</p>
-                        </div>
-                        {following && <Following show={following} onHide={() => setFollowing(!following)} myFollowingList={myFollowingList} followingList={followingList}/>}
                     </div>
-                    <div style={{paddingLeft:"30px"}}>
+                    {myId === userId && 
+                    <div style={{paddingLeft:"28px", paddingTop:"18px"}}>
                         <div style={{background:"lightgray", padding:"10px", marginLeft:"15px", fontSize:"15px", cursor:"pointer"}} onClick={() => setEditModal(!editModal)}>내정보 수정</div>
                         {editModal && <MyPageEditModal show={editModal} onHide={() => setEditModal(!editModal)}/>}
                         <div style={{background:"black", color:"white", padding:"10px", marginLeft:"15px", fontSize:"15px", cursor:"pointer", textAlign:"center", marginTop:"10px"}} onClick={() => setPostingModal(!postingModal)}>글쓰기</div>
                         {postingModal && <MyPagePostingModal show={postingModal} onHide={() => setPostingModal(!postingModal)}/>}
                     </div>
+                    }
                 </div>
                 <div className="posts">
                     <PostList userInfo={userInfo} />

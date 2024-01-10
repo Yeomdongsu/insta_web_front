@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import "./../css/PostList.css";
+import PostDetailModal from './PostDetailModal';
 
-function Post({ imageUrl, caption }) {
+function Post({ imageUrl, caption, postingId }) {
+
+  const [showModal, setShowModal] = useState(false);
 
   function updatePost(){
     let confirm = window.confirm("게시글을 수정하시겠습니까?");
@@ -27,8 +30,9 @@ function Post({ imageUrl, caption }) {
             <Dropdown.Item onClick={deletePost}>글 삭제</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-        <img src={imageUrl} alt="포스트 이미지" className="post-image" />
+        <img src={imageUrl} alt="포스트 이미지" className="post-image" onClick={() => setShowModal(!showModal)}/>
         <p className="post-caption">{caption}</p>
+        {showModal && <PostDetailModal show={showModal} onHide={() => setShowModal(false)} postingId={postingId}/>}
     </div>
   );
 }

@@ -1,0 +1,56 @@
+/* PostDetailModal.css */
+.fade-enter {
+    opacity: 0.01;
+    transform: scale(0);
+  }
+  
+  .fade-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 300ms, transform 300ms;
+  }
+  
+  .fade-exit {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .fade-exit-active {
+    opacity: 0.01;
+    transform: scale(0);
+    transition: opacity 300ms, transform 300ms;
+  }
+  
+  .post-detail-modal {
+    .modal-content {
+      border-radius: 10px;
+    }
+  }
+  
+  .post-info {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .nickname {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .created-at {
+    color: #888;
+  }
+  
+  .post-content {
+    margin-top: 10px;
+  }
+  
+  .tag-list {
+    margin-top: 10px;
+  }
+  
+  .tag {
+    margin-right: 5px;
+  }

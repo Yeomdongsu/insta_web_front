@@ -1,9 +1,12 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 function MyPagePostingModal(props) {
+    const jwtToken = localStorage.getItem("jwtToken");
+
     const [postContent, setPostContent] = useState('');
     const [file, setFile] = useState(null);
   
@@ -17,11 +20,26 @@ function MyPagePostingModal(props) {
     };
   
     const handlePostSubmit = () => {
-      console.log('Content:', postContent);
-      console.log('File:', file);
-  
-      // 여기에 실제 게시글을 서버에 업로드하는 로직을 추가하세요.
-  
+      if (file == null || postContent == ""){
+        return alert("사진과 내용 모두 입력하세요.");
+      }
+
+      let confirm = window.confirm("작성하시겠습니까?");
+      if (confirm == true){
+        const formData = new FormData();
+        formData.append("photo", file);
+        formData.append("content", postContent);
+
+        axios.post("https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/posting", formData, 
+        { headers: { Authorization: `Bearer ${jwtToken}`}}) 
+        .then((res) => {
+            console.log(res.data);
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+      }
+
       props.onHide();
     };
 
@@ -43,22 +61,17 @@ function MyPagePostingModal(props) {
         <Form>
             <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label style={{fontWeight:"600"}}>사진을 선택해주세요.</Form.Label>
-                <Form.Control type="file" />
+                <Form.Control type="file" accept='image/*' onChange={handleFileChange}/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                 <Form.Label style={{fontWeight:"600"}}>게시글 내용을 작성하세요.</Form.Label>
-                <Form.Control as="textarea" rows={2} />
+                <Form.Control as="textarea" rows={2} onChange={handlePostContentChange}/>
             </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="dark" onClick={props.onHide}>닫기</Button>
-        <Button onClick={() => {
-            let confirm = window.confirm("작성하시겠습니까?");
-            if (confirm == true){
-                props.onHide();
-            } 
-        }}>작성</Button>  
+        <Button onClick={handlePostSubmit}>작성</Button>  
       </Modal.Footer>
     </Modal>
     </>

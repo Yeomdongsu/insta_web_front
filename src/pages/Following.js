@@ -9,6 +9,7 @@ function Following(props) {
 
   const nav = useNavigate();
   let jwtToken = localStorage.getItem("jwtToken");
+  let myId = localStorage.getItem("id");
 
   return (
     <Modal
@@ -29,8 +30,12 @@ function Following(props) {
             return (
               <div style={{marginBottom:"15px", display:"flex", alignItems:"center"}} key={i}>
                   <FontAwesomeIcon icon={faCircleUser} style={{fontSize:"30px"}}/>
-                  <span style={{margin:"0 10px 0 30px", fontSize:"17px", flex:"1", textAlign:"center"}} onClick={() => nav(`/myPage/${following.id}`)}>{following.nickname}</span>
+                  <span style={{margin:"0 10px 0 30px", fontSize:"17px", flex:"1", textAlign:"center"}} onClick={() => {nav(`/myPage/${following.id}`); props.onHide();}}>{following.nickname}</span>
                   <span style={{color:"red", fontSize:"15px", cursor:"pointer"}} onClick={() => {
+                    if (props.userId != myId){
+                      return alert("본인 계정만 가능합니다.");
+                    }
+
                     let confirm = window.confirm("팔로잉을 취소 하시겠습니까?");
                     if (confirm == false) return;
                     

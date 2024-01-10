@@ -10,7 +10,7 @@ function PostList(props) {
           <div style={{fontWeight:"700", color:"blue"}}>작성한 글이 없습니다.</div>
         ) : (
           props.userInfo.map((post, i) => (
-            <Post key={i} imageUrl={post.imageUrl} caption={post.content} />
+            <Post key={i} imageUrl={post.imageUrl} caption={post.content} postingId={post.postingId}/>
           ))
         ) 
       }

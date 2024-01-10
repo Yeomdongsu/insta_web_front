@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./../css/Main.css";
 import { faComment, faFaceSmile, faHeart, faUser } from "@fortawesome/free-regular-svg-icons";
-import { faCaretDown, faCircleUser, faHashtag, faHeartCircleCheck,} from "@fortawesome/free-solid-svg-icons";
+import { faCircleUser, faHeartCircleCheck,} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import Main2 from "./Main2";
 import Header from "./Header";
@@ -89,12 +89,11 @@ function Main(){
                             <article className="feed">
                                 <div className="new_poster">
                                     <FontAwesomeIcon icon={faCircleUser} style={{fontSize:"23px"}}/>
-                                    <span href="#n" className="poster_id txt_id">{post.nickname}</span>
-                                    <FontAwesomeIcon icon={faCaretDown} style={{fontSize:"20px", cursor:"pointer"}}/>
+                                    <span className="poster_id txt_id" onClick={() => nav(`/myPage/${post.userId}`)}>{post.nickname}</span>
                                 </div>
 
                                 <section className="feed_imgs">
-                                    <div style={{textAlign:"center", height:"500px", borderTop:"px solid lightgray"}}><img src={post.imageUrl} /></div>
+                                    <div style={{textAlign:"center", height:"500px", borderTop:"px solid lightgray"}}><img src={post.imageUrl}/></div>
                                 </section>       
                                     <div className="interactions">
                                         <div className="my_emotion">
@@ -141,14 +140,13 @@ function Main(){
                                                 setLikeListModal(!likeListModal);
                                             }}>{post.favoriteCnt}명이 좋아합니다.</span>
                                         )}
-                                        {likeListModal && <LikeList show={likeListModal} onHide={() => setLikeListModal(!likeListModal)} likeList={likeList} setLikeList={setLikeList} jwtToken={jwtToken} fetchData={fetchData}/>}
+                                        {likeListModal && <LikeList show={likeListModal} onHide={() => setLikeListModal(!likeListModal)} likeList={likeList} setLikeList={setLikeList} jwtToken={jwtToken} fetchData={fetchData} fetchDataMain2={fetchDataMain2}/>}
                                     </p>
                                 
                                 {/* 게시글 내용 부분 */}
                                 <section className="feed_txt">   
-                                    <span href="#n" className="txt_id">{post.nickname}</span>
+                                    <span className="txt_id" onClick={() => nav(`/myPage/${post.userId}`)}>{post.nickname}</span>
                                     <span>{post.content}</span>
-                                    {/* <div style={{paddingTop:"5px"}}><FontAwesomeIcon icon={faHashtag} style={{marginRight:"5px"}}/><span style={{color:"blue", fontWeight:"500"}}>ddsada</span></div>     */}
                                 </section>
 
                                 {/* 댓글 부분 */}
