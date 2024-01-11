@@ -3,7 +3,7 @@ import { Dropdown } from 'react-bootstrap';
 import "./../css/PostList.css";
 import PostDetailModal from './PostDetailModal';
 
-function Post({ imageUrl, caption, postingId }) {
+function Post({ imageUrl, caption, postingId, myPageInfo }) {
 
   const [showModal, setShowModal] = useState(false);
 
@@ -32,7 +32,7 @@ function Post({ imageUrl, caption, postingId }) {
         </Dropdown>
         <img src={imageUrl} alt="포스트 이미지" className="post-image" onClick={() => setShowModal(!showModal)}/>
         <p className="post-caption">{caption}</p>
-        {showModal && <PostDetailModal show={showModal} onHide={() => setShowModal(false)} postingId={postingId}/>}
+        {showModal && <PostDetailModal show={showModal} onHide={() => setShowModal(false)} postingId={postingId} myPageInfo={myPageInfo}/>}
     </div>
   );
 }

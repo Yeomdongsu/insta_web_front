@@ -34,7 +34,7 @@ function MainCommentListModal(props) {
                             <FontAwesomeIcon icon={faCircleUser} style={{ fontSize: "60px" }} />
                             <div style={{ marginLeft: "20px" }}>
                                 <span style={{ fontSize: "17px", fontWeight: "600", color:"blue", cursor:"pointer" }} onClick={() => nav(`/myPage/${comment.userId}`)}>{comment.nickname}</span>
-                                <span style={{ marginLeft: "10px", fontSize: "14px", color: "gray" }}>{comment.createdAt}</span>
+                                <span style={{ marginLeft: "10px", fontSize: "14px", color: "gray" }}>{new Date(comment.createdAt + 'Z').toLocaleString('en-US', { timeZone: 'Asia/Seoul' })}</span>
                                 <p style={{ marginTop: "5px", fontSize: "15px", fontWeight:"600" }}>{comment.comment}</p>
                             </div>
                             {nickname == comment.nickname && 

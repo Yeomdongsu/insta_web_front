@@ -24,6 +24,20 @@
   .post-detail-modal {
     .modal-content {
       border-radius: 10px;
+      width: 500px;
+    }
+
+    .modal-body {
+      /* max-height: 600px; 필요에 따라 조절 */
+      overflow-y: hidden;
+    }
+
+    .modal-body img {
+      max-height: 600px; /* 이미지의 최대 높이 설정 */
+      width: auto; /* 가로 비율 유지 */
+      max-width: 100%; /* 부모 요소에 맞추기 */
+      margin: auto; /* 중앙 정렬 */
+      display: block; /* 인라인 요소를 블록으로 변경하여 중앙 정렬 */
     }
   }
   
@@ -54,3 +68,21 @@
   .tag {
     margin-right: 5px;
   }
+
+  .interactions {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.like-num {
+    margin-left: 6px;
+    
+}
+
+.comment-num {
+    margin-left: 10px;
+    color: gray;
+    font-size: 14px;
+    margin-top: 9px;
+}
