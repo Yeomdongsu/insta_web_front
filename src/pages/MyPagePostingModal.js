@@ -33,7 +33,9 @@ function MyPagePostingModal(props) {
         axios.post("https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/posting", formData, 
         { headers: { Authorization: `Bearer ${jwtToken}`}}) 
         .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
+            alert("글이 작성되었습니다.");
+            props.myPageInfo();
         })
         .catch((e) => {
             console.log(e);

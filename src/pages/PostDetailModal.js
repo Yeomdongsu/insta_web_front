@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeartCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import LikeList from './LikeList';
+import MainCommentListModal from './MainCommentListModal';
 
 function PostDetailModal({ show, onHide, postingId, myPageInfo }) {
   const [modalEntered, setModalEntered] = useState(false);
@@ -18,11 +19,15 @@ function PostDetailModal({ show, onHide, postingId, myPageInfo }) {
   let [likeList, setLikeList] = useState([]);
   let [likeListModal, setLikeListModal] = useState(false);
 
+  let [commentList, setCommentList] = useState([]);
+  let [commentListModal, setCommentListModal] = useState(false);
+
   useEffect(() => {
     // 모달이 열릴 때 애니메이션을 위해 modalEntered 상태 변경
     setModalEntered(show);
     detailPost();
     console.log(1);
+    console.log(detailPostInfo);
   }, [show, likeList]);
 
   function detailPost(){
@@ -125,8 +130,18 @@ function PostDetailModal({ show, onHide, postingId, myPageInfo }) {
             </div>        
 
             {/* 댓글 개수 표시 */}
-            <div className="comment-num">댓글 {detailPostInfo.commentCnt}개 모두 보기</div>
-            
+            <div className="comment-num" style={{cursor:"pointer"}} onClick={() => {
+              axios.get(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/comment/${detailPostInfo.postId}`,
+              { headers: { Authorization: `Bearer ${jwtToken}`}})
+              .then((res) => {
+                  setCommentList(res.data.commentList);
+              })
+              .catch((e) => console.log(e));
+
+              setCommentListModal(!commentListModal);
+            }}>댓글 {detailPostInfo.commentCnt}개 모두 보기
+            </div>
+            {commentListModal && <MainCommentListModal show={commentListModal} onHide={() => setCommentListModal(!commentListModal)} commentList={commentList} setCommentList={setCommentList}/>}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="dark" onClick={onHide}>닫기</Button>

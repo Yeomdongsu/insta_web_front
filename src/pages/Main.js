@@ -34,7 +34,7 @@ function Main(){
         fetchData();
         fetchDataMain2();
         console.log(1);
-    }, [likeList]);
+    }, [likeList, commentList]);
 
     function fetchDataMain2(){
         axios.get("https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/user/login", 
@@ -173,7 +173,7 @@ function Main(){
                                                     setCommentListModal(!commentListModal);
                                                 }}>댓글 {post.commentCnt}개 모두 보기</span>
                                             </p>
-                                            {commentListModal && <MainCommentListModal show={commentListModal} onHide={() => setCommentListModal(!commentListModal)} jwtToken={jwtToken} fetchData={fetchData} commentList={commentList} setCommentList={setCommentList} />}
+                                            {commentListModal && <MainCommentListModal show={commentListModal} onHide={() => setCommentListModal(!commentListModal)} commentList={commentList} setCommentList={setCommentList} />}
                                         </div>
                                         <form id="post" className="post_comment">
                                             <FontAwesomeIcon icon={faUser} style={{fontSize:"18px", paddingRight:"7px"}}/>

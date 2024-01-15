@@ -1,7 +1,6 @@
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import { useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +9,8 @@ function MainCommentListModal(props) {
 
     // console.log(props.commentList);
     // console.log(props.postId);
-    const nickname = localStorage.getItem("nickname")
+    const jwtToken = localStorage.getItem("jwtToken");
+    const nickname = localStorage.getItem("nickname");
     const nav = useNavigate();
 
     return (
@@ -43,12 +43,11 @@ function MainCommentListModal(props) {
                                     if (confirm == false) return;
                                     
                                     axios.delete(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/comment/${comment.commentId}`,
-                                    { headers: { Authorization: `Bearer ${props.jwtToken}`}})
+                                    { headers: { Authorization: `Bearer ${jwtToken}`}})
                                     .then((res) => {
                                     console.log(res.data);
                                     const updatedCommentList = props.commentList.filter((c) => c.commentId !== comment.commentId);
                                     props.setCommentList(updatedCommentList);
-                                    props.fetchData();
                                     alert("삭제되었습니다.");
                                     })
                                     .catch((e) => console.log(e));

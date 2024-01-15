@@ -23,7 +23,7 @@ function Header(){
                 </div>
                 <nav className="gnb">
                     <ul>
-                        <FontAwesomeIcon icon={faHeart} style={{fontSize:"25px", paddingRight:"20px", cursor:"pointer"}}/>
+                        {/* <FontAwesomeIcon icon={faHeart} style={{fontSize:"25px", paddingRight:"20px", cursor:"pointer"}}/> */}
                         <FontAwesomeIcon icon={faUser} style={{fontSize:"25px", paddingRight:"20px", cursor:"pointer"}} onClick={() => nav(`/myPage/${userId}`)}/>
                     </ul>
                 </nav>

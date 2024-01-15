@@ -29,7 +29,7 @@ function LikeList(props) {
             return (
               <div style={{marginBottom:"15px", display:"flex", alignItems:"center"}} key={i}>
                 <FontAwesomeIcon icon={faCircleUser} style={{fontSize:"30px"}}/>
-                <span style={{margin:"0 10px 0 30px", fontSize:"17px", flex:"1", textAlign:"center"}} onClick={() => {props.onHide(); props.hide(); nav(`/myPage/${user.userId}`); }}>{user.nickname}</span>
+                <span style={{margin:"0 10px 0 30px", fontSize:"17px", flex:"1", textAlign:"center"}} onClick={() => {props.onHide(); nav(`/myPage/${user.userId}`); }}>{user.nickname}</span>
                 {user.isFollow == 0 ? (
                   <span style={{color:"blue", fontSize:"15px"}} onClick={() => {
                     let confirm = window.confirm("팔로우 하시겠습니까?");

@@ -45,7 +45,9 @@ function Login(){
             handleSignUpClick();
         })
         .catch((e) => {
-            alert(e.response.data.error);
+            if (e.response && e.response.status === 500){
+                window.alert("닉네임이나 이메일이 이미 존재합니다.");
+            }
         })
     }
 

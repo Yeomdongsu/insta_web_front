@@ -38,7 +38,6 @@ function MyPage(props) {
 
         myPageInfo();
         setLoading(false);
-        console.log(1);
     }, [userId, myFollowerList, myFollowingList]);
 
     function myPageInfo(){
@@ -106,7 +105,7 @@ function MyPage(props) {
                         <img src={process.env.PUBLIC_URL + '/loading.gif'} alt="로딩 중" style={{ width:"500px", height:"500px" }} />
                     </div>
                 ) : (
-                    <div className="my-page">
+                <div className="my-page">
                     <div className="profile">
                         <FontAwesomeIcon icon={faCircleUser} className='profile-image'/>
                         {/* 사용자 통계 */}
@@ -132,9 +131,9 @@ function MyPage(props) {
                         {myId === userId && 
                         <div style={{paddingLeft:"28px", paddingTop:"18px"}}>
                             <div style={{background:"lightgray", padding:"10px", marginLeft:"15px", fontSize:"15px", cursor:"pointer"}} onClick={() => setEditModal(!editModal)}>내정보 수정</div>
-                            {editModal && <MyPageEditModal show={editModal} onHide={() => setEditModal(!editModal)}/>}
+                            {editModal && <MyPageEditModal show={editModal} onHide={() => setEditModal(!editModal)} userInfo={userInfo[0]} setUserInfo={setUserInfo}/>}
                             <div style={{background:"black", color:"white", padding:"10px", marginLeft:"15px", fontSize:"15px", cursor:"pointer", textAlign:"center", marginTop:"10px"}} onClick={() => setPostingModal(!postingModal)}>글쓰기</div>
-                            {postingModal && <MyPagePostingModal show={postingModal} onHide={() => setPostingModal(!postingModal)}/>}
+                            {postingModal && <MyPagePostingModal show={postingModal} onHide={() => setPostingModal(!postingModal)} myPageInfo={myPageInfo}/>}
                         </div>
                         }
                     </div>

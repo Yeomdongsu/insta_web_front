@@ -2,22 +2,25 @@ import React, { useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import "./../css/PostList.css";
 import PostDetailModal from './PostDetailModal';
+import axios from 'axios';
 
 function Post({ imageUrl, caption, postingId, myPageInfo }) {
 
+  const jwtToken = localStorage.getItem("jwtToken");
+
   const [showModal, setShowModal] = useState(false);
 
-  function updatePost(){
-    let confirm = window.confirm("게시글을 수정하시겠습니까?");
-    if (confirm == true){
-      window.alert("수정되었습니다.");
-    } 
-  }
-
   function deletePost(){
-    let confirm = window.confirm("게시글을 삭제하시겠습니까?");
+    let confirm = window.confirm("해당 게시글을 삭제하시겠습니까?");
     if (confirm == true){
-      window.alert("삭제되었습니다.");
+      axios.delete(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/posting/${postingId}`,  
+      { headers: { Authorization: `Bearer ${jwtToken}`}})
+      .then((res) => {
+        // console.log(res.data);
+        window.alert("해당 글이 삭제되었습니다.");
+        myPageInfo();
+      })
+      .catch((e) => console.log(e));
     } 
   }
 
@@ -26,7 +29,6 @@ function Post({ imageUrl, caption, postingId, myPageInfo }) {
         <Dropdown>
           <Dropdown.Toggle variant="light" id="dropdown-basic" style={{float:"right", border:"none", width:"30px"}}></Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item onClick={updatePost}>글 수정</Dropdown.Item>
             <Dropdown.Item onClick={deletePost}>글 삭제</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>

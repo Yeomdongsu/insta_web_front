@@ -26,8 +26,8 @@ function Main2(props){
                                     {}, { headers: { Authorization: `Bearer ${props.jwtToken}`}})
                                     .then((res) => {
                                       console.log(res.data);
-                                    //   props.fetchDataMain2();
-                                    //   props.fetchData();
+                                      props.fetchDataMain2();
+                                      props.fetchData();
                                     })
                                     .catch((e) => alert(e.response.data.error));
                                 }}>팔로우</span>
