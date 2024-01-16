@@ -110,7 +110,7 @@ function MyPage(props) {
                         <FontAwesomeIcon icon={faCircleUser} className='profile-image'/>
                         {/* 사용자 통계 */}
                         <div>
-                            <div style={{fontWeight:"600", fontSize:"20px"}}>{userInfo.length > 0 && userInfo[0].userEmail}</div>
+                            <span style={{fontWeight:"600", fontSize:"20px", color:"#007bff"}}>{userInfo.length > 0 && userInfo[0].userNickname}</span>의 게시물
                             <div className="user-stats">
                                 <div style={{padding:"25px 35px 35px 25px"}}>
                                     <strong>게시물</strong>
@@ -131,7 +131,7 @@ function MyPage(props) {
                         {myId === userId && 
                         <div style={{paddingLeft:"28px", paddingTop:"18px"}}>
                             <div style={{background:"lightgray", padding:"10px", marginLeft:"15px", fontSize:"15px", cursor:"pointer"}} onClick={() => setEditModal(!editModal)}>내정보 수정</div>
-                            {editModal && <MyPageEditModal show={editModal} onHide={() => setEditModal(!editModal)} userInfo={userInfo[0]} setUserInfo={setUserInfo}/>}
+                            {editModal && <MyPageEditModal show={editModal} onHide={() => setEditModal(!editModal)} userInfo={userInfo[0]} setUserInfo={setUserInfo} myPageInfo={myPageInfo}/>}
                             <div style={{background:"black", color:"white", padding:"10px", marginLeft:"15px", fontSize:"15px", cursor:"pointer", textAlign:"center", marginTop:"10px"}} onClick={() => setPostingModal(!postingModal)}>글쓰기</div>
                             {postingModal && <MyPagePostingModal show={postingModal} onHide={() => setPostingModal(!postingModal)} myPageInfo={myPageInfo}/>}
                         </div>
