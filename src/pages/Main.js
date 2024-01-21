@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./../css/Main.css";
-import { faComment, faFaceSmile, faHeart, faUser } from "@fortawesome/free-regular-svg-icons";
-import { faCircleUser, faHeartCircleCheck,} from "@fortawesome/free-solid-svg-icons";
+import { faComment, faFaceSmile, faHeart } from "@fortawesome/free-regular-svg-icons";
+import { faCircleUser, faHeartCircleCheck, faUser,} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import Main2 from "./Main2";
 import Header from "./Header";

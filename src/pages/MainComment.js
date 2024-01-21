@@ -10,6 +10,8 @@ function MainComment(props) {
     <div>
         <input size={47} style={{marginTop:"5px", marginBottom:"5px"}} onChange={(e) => setComment(e.target.value)} />
         <Button variant="dark" style={{width:"60px", height:"35px", margin:"0 0 4px 5px", padding:"5px"}} onClick={() => {
+            if (comment == "") return window.alert("내용을 입력해주세요."); 
+            
             let confirm = window.confirm("작성하시겠습니까?");
             if (confirm == true){
                 

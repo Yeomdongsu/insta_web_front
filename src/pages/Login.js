@@ -31,8 +31,13 @@ function Login(){
         }));
     };
     
-     
     function register(){
+        if (formData.nickname == "" || formData.email == "" || formData.password == "" || formData.retype_password == "") return window.alert("모두 입력하세요.");
+        
+        if (formData.password.length < 4 || formData.password.length > 14) return window.alert("비밀번호 길이는 4글자 이상 ~ 14글자 이하로 해주세요.");
+
+        if (formData.password != formData.retype_password) return window.alert("입력한 비밀번호와 비밀번호 확인이 다릅니다.");
+
         axios.post("https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/user/register", formData)
         .then((res) => {
             alert("회원가입 성공!");
@@ -47,6 +52,8 @@ function Login(){
         .catch((e) => {
             if (e.response && e.response.status === 500){
                 window.alert("닉네임이나 이메일이 이미 존재합니다.");
+            } else if(e.response && e.response.status === 400){
+                window.alert("이메일 형식을 올바르게 적어주세요.");
             }
         })
     }
@@ -67,6 +74,8 @@ function Login(){
 
     // 로그인
     function userLogin(){
+        if (formData2.email == "" || formData2.password == "") return window.alert("모두 입력하세요.");
+
         axios.post("https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/user/login", formData2, { headers: {
             'Content-Type': 'application/json',
           },

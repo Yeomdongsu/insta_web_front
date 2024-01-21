@@ -10,6 +10,7 @@
   
   body {
     background-color: var(--white);
+    /* background: linear-gradient(to right, var(--pink), var(--blue)); */
   }
   
   .formContainer {

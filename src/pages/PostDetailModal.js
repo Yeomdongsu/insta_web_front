@@ -4,10 +4,11 @@ import { CSSTransition } from 'react-transition-group';
 import './../css/PostDetailModal.css'; // CSS 파일을 import
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeartCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import { faHeartCircleCheck, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import LikeList from './LikeList';
 import MainCommentListModal from './MainCommentListModal';
+import MainComment from './MainComment';
 
 function PostDetailModal({ show, onHide, postingId, myPageInfo }) {
   const [modalEntered, setModalEntered] = useState(false);
@@ -21,6 +22,8 @@ function PostDetailModal({ show, onHide, postingId, myPageInfo }) {
 
   let [commentList, setCommentList] = useState([]);
   let [commentListModal, setCommentListModal] = useState(false);
+
+  let [commentModal, setCommentModal] = useState(false);
 
   useEffect(() => {
     // 모달이 열릴 때 애니메이션을 위해 modalEntered 상태 변경
@@ -81,7 +84,7 @@ function PostDetailModal({ show, onHide, postingId, myPageInfo }) {
             </div>
 
             {/* 태그 표시 */}
-            {tagList.length == 0 ? (<div>태그가 존재하지 않는 포스팅입니다.</div>) : 
+            {tagList.length == 0 ? (<div style={{marginTop:"10px", color:"blue", fontSize:"15px"}}>이미지에 탐지된 물체가 없습니다.</div>) : 
             (<div className="tag-list">
               {tagList.map((tag, index) => (
                   <Badge key={index} variant="secondary" className="tag">
@@ -142,6 +145,14 @@ function PostDetailModal({ show, onHide, postingId, myPageInfo }) {
             }}>댓글 {detailPostInfo.commentCnt}개 모두 보기
             </div>
             {commentListModal && <MainCommentListModal show={commentListModal} onHide={() => setCommentListModal(!commentListModal)} commentList={commentList} setCommentList={setCommentList}/>}
+          
+            {/* 댓글 달기 */}
+            <form className="post_comment" style={{marginLeft:"10px"}}>
+                <FontAwesomeIcon icon={faUser} style={{fontSize:"18px", paddingRight:"7px"}}/>
+                <div style={{cursor:"pointer", fontSize:"15px", color:"gray"}} onClick={() => setCommentModal(!commentModal)}>댓글 달기...</div>
+            </form> 
+            {commentModal && <MainComment commentModal={commentModal} setCommentModal={setCommentModal} jwtToken={jwtToken} fetchData={detailPost} postId={detailPostInfo.postId}/>}
+
           </Modal.Body>
           <Modal.Footer>
             <Button variant="dark" onClick={onHide}>닫기</Button>

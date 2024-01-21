@@ -30,7 +30,7 @@ function Header(){
 
                 <div style={{marginLeft:"3px"}}>
                     <span style={{color:"blue", cursor:"pointer"}} onClick={() => nav(`/myPage/${userId}`)}>{myNickname}</span>님 환영합니다.
-                    <div style={{color : "red", textAlign:"center"}} onClick={() => {
+                    <div style={{color : "red", textAlign:"center", cursor:"pointer"}} onClick={() => {
                         let confirm = window.confirm("로그아웃 하시겠습니까?");
                         if (confirm == true){
                             axios.delete("https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/user/logout",
