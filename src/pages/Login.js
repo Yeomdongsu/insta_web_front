@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import SocialKakao from "./SocialKakao";
 
 function Login(){
 
@@ -110,6 +111,7 @@ function Login(){
                         <input type="password" placeholder="Password" name="password" value={formData2.password} onChange={handleChange2} />
                     </div>
                     <button type="submit">로그인</button>
+                    <SocialKakao />
                 </form>
                 <a href="#" id={`${isSignUp ? 'signup' : 'signin'}`} onClick={handleSignUpClick}>
                     {isSignUp ? '로그인' : '회원가입'}

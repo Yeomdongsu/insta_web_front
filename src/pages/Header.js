@@ -12,6 +12,9 @@ function Header(){
     let myNickname = localStorage.getItem("nickname");
     let userId = localStorage.getItem("id");
 
+    // 카카오로그인 시
+    const access_token = localStorage.getItem("access_token");
+
     return (
         <header>
             <div className="wrap">
@@ -28,22 +31,43 @@ function Header(){
                     </ul>
                 </nav>
 
-                <div style={{marginLeft:"3px"}}>
-                    <span style={{color:"blue", cursor:"pointer"}} onClick={() => nav(`/myPage/${userId}`)}>{myNickname}</span>님 환영합니다.
-                    <div style={{color : "red", textAlign:"center", cursor:"pointer"}} onClick={() => {
-                        let confirm = window.confirm("로그아웃 하시겠습니까?");
-                        if (confirm == true){
-                            axios.delete("https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/user/logout",
-                            { headers: { Authorization: `Bearer ${jwtToken}`}})
-                            .then((res) => {
-                                localStorage.clear();
-                                alert("로그아웃 되셨습니다.");
-                                nav("/");
-                            })
-                            .catch((e) => console.log(e));
-                        }
-                    }}>로그아웃</div>
-                </div>
+                {access_token == null ? (
+                    <div style={{marginLeft:"3px"}}>
+                        <span style={{color:"blue", cursor:"pointer"}} onClick={() => nav(`/myPage/${userId}`)}>{myNickname}</span>님 환영합니다.
+                        <div style={{color : "red", textAlign:"center", cursor:"pointer"}} onClick={() => {
+                            let confirm = window.confirm("로그아웃 하시겠습니까?");
+                            if (confirm == true){
+                                axios.delete("https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/user/logout",
+                                { headers: { Authorization: `Bearer ${jwtToken}`}})
+                                .then((res) => {
+                                    localStorage.clear();
+                                    alert("로그아웃 되셨습니다.");
+                                    nav("/");
+                                })
+                                .catch((e) => console.log(e));
+                            }
+                        }}>로그아웃</div>
+                    </div>
+                ) : (
+                    <div style={{marginLeft:"3px"}}>
+                        <img src={process.env.PUBLIC_URL + '/kakao.png'} style={{width:"30px", paddingRight:"4px", paddingBottom:"3px"}}/>
+                        <span style={{color:"blue", cursor:"pointer"}} onClick={() => nav(`/myPage/${userId}`)}>{myNickname}</span>님 환영합니다.
+                        <div style={{color : "red", textAlign:"center", cursor:"pointer"}} onClick={() => {
+                            let confirm = window.confirm("로그아웃 하시겠습니까?");
+                            if (confirm == true){
+                                axios.post(`https://kapi.kakao.com/v1/user/unlink`, {}, { headers: {Authorization: `Bearer ${access_token}`}})
+                                .then((res) => {
+                                    // console.log(res);
+                                    localStorage.clear();
+                                    alert("로그아웃 되셨습니다.");
+                                    nav("/");
+                                })
+                                .catch((e) => console.log(e));
+                            }
+                        }}>로그아웃</div>
+                    </div>
+                )}
+                
             </div>
         </header>
     );
