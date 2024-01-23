@@ -15,7 +15,7 @@ function MainComment(props) {
             let confirm = window.confirm("작성하시겠습니까?");
             if (confirm == true){
                 
-                axios.post(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/comment/${props.postId}`, 
+                axios.post(`${process.env.REACT_APP_URL}/comment/${props.postId}`, 
                 { postComment: comment }, { headers: { Authorization: `Bearer ${props.jwtToken}`}})
                 .then((res) => {
                   console.log(res);

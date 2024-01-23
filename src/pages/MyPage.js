@@ -41,7 +41,7 @@ function MyPage(props) {
     }, [userId, myFollowerList, myFollowingList]);
 
     function myPageInfo(){
-        axios.get(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/myPage/${userId}`, 
+        axios.get(`${process.env.REACT_APP_URL}/myPage/${userId}`, 
         { headers: { Authorization: `Bearer ${jwtToken}`}})
         .then((res) => {
             // console.log(res.data.items);
@@ -65,7 +65,7 @@ function MyPage(props) {
     }
 
     function followerList(){
-        axios.get(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/follower/${userId}`,
+        axios.get(`${process.env.REACT_APP_URL}/follower/${userId}`,
         { headers: { Authorization: `Bearer ${jwtToken}`}}) 
         .then((res) => {
             console.log(res.data.followers);
@@ -82,7 +82,7 @@ function MyPage(props) {
     }
     
     function followingList(){
-        axios.get(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/followee/${userId}`,
+        axios.get(`${process.env.REACT_APP_URL}/followee/${userId}`,
         { headers: { Authorization: `Bearer ${jwtToken}`}}) 
         .then((res) => {
             console.log(res.data.following);

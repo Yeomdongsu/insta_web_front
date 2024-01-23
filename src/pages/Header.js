@@ -11,6 +11,7 @@ function Header(){
     const jwtToken = localStorage.getItem("jwtToken");
     let myNickname = localStorage.getItem("nickname");
     let userId = localStorage.getItem("id");
+    const image = localStorage.getItem("image");
 
     // 카카오로그인 시
     const access_token = localStorage.getItem("access_token");
@@ -37,7 +38,7 @@ function Header(){
                         <div style={{color : "red", textAlign:"center", cursor:"pointer"}} onClick={() => {
                             let confirm = window.confirm("로그아웃 하시겠습니까?");
                             if (confirm == true){
-                                axios.delete("https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/user/logout",
+                                axios.delete(`${process.env.REACT_APP_URL}/user/logout`,
                                 { headers: { Authorization: `Bearer ${jwtToken}`}})
                                 .then((res) => {
                                     localStorage.clear();
@@ -50,7 +51,8 @@ function Header(){
                     </div>
                 ) : (
                     <div style={{marginLeft:"3px"}}>
-                        <img src={process.env.PUBLIC_URL + '/kakao.png'} style={{width:"30px", paddingRight:"4px", paddingBottom:"3px"}}/>
+                        <img src={image} style={{width:"30px", paddingRight:"4px", paddingBottom:"3px", cursor:"pointer"}} onClick={() => window.alert("카카오톡 프로필 사진입니다.")}/>
+                        {/* <img src={process.env.PUBLIC_URL + '/kakao.png'} style={{width:"30px", paddingRight:"4px", paddingBottom:"3px"}}/> */}
                         <span style={{color:"blue", cursor:"pointer"}} onClick={() => nav(`/myPage/${userId}`)}>{myNickname}</span>님 환영합니다.
                         <div style={{color : "red", textAlign:"center", cursor:"pointer"}} onClick={() => {
                             let confirm = window.confirm("로그아웃 하시겠습니까?");

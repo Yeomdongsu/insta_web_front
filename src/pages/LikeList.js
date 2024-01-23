@@ -35,7 +35,7 @@ function LikeList(props) {
                     let confirm = window.confirm("팔로우 하시겠습니까?");
                     if (confirm == false) return;
 
-                    axios.post(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/follow/${user.userId}`,
+                    axios.post(`${process.env.REACT_APP_URL}/follow/${user.userId}`,
                     {}, { headers: { Authorization: `Bearer ${props.jwtToken}`}})
                     .then((res) => {
                       console.log(res.data);
@@ -50,7 +50,7 @@ function LikeList(props) {
                     let confirm = window.confirm("팔로잉을 취소 하시겠습니까?");
                     if (confirm == false) return;
                     
-                    axios.delete(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/follow/${user.userId}`,
+                    axios.delete(`${process.env.REACT_APP_URL}/follow/${user.userId}`,
                     { headers: { Authorization: `Bearer ${props.jwtToken}`}})
                     .then((res) => {
                       console.log(res.data);

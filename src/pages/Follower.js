@@ -40,7 +40,7 @@ function Follower(props) {
                       let confirm = window.confirm("팔로우 하시겠습니까?");
                       if (confirm == false) return;
 
-                      axios.post(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/follow/${follower.id}`,
+                      axios.post(`${process.env.REACT_APP_URL}/follow/${follower.id}`,
                       {}, { headers: { Authorization: `Bearer ${jwtToken}`}})
                       .then((res) => {
                         props.followerList();
@@ -56,7 +56,7 @@ function Follower(props) {
                       let confirm = window.confirm("팔로잉을 취소 하시겠습니까?");
                       if (confirm == false) return;
                       
-                      axios.delete(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/follow/${follower.id}`,
+                      axios.delete(`${process.env.REACT_APP_URL}/follow/${follower.id}`,
                       { headers: { Authorization: `Bearer ${jwtToken}`}})
                       .then((res) => {
                         props.followerList();

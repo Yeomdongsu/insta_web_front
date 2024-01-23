@@ -39,7 +39,7 @@ function Login(){
 
         if (formData.password != formData.retype_password) return window.alert("입력한 비밀번호와 비밀번호 확인이 다릅니다.");
 
-        axios.post("https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/user/register", formData)
+        axios.post(`${process.env.REACT_APP_URL}/user/register`, formData)
         .then((res) => {
             alert("회원가입 성공!");
             setFormData({
@@ -77,7 +77,7 @@ function Login(){
     function userLogin(){
         if (formData2.email == "" || formData2.password == "") return window.alert("모두 입력하세요.");
 
-        axios.post("https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/user/login", formData2, { headers: {
+        axios.post(`${process.env.REACT_APP_URL}/user/login`, formData2, { headers: {
             'Content-Type': 'application/json',
           },
         })

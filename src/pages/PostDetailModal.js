@@ -34,7 +34,7 @@ function PostDetailModal({ show, onHide, postingId, myPageInfo }) {
   }, [show, likeList]);
 
   function detailPost(){
-    axios.get(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/posting/${postingId}`, 
+    axios.get(`${process.env.REACT_APP_URL}/posting/${postingId}`, 
         { headers: { Authorization: `Bearer ${jwtToken}`}})
         .then((res) => {
             let data = {...res.data.post[0]};
@@ -86,6 +86,7 @@ function PostDetailModal({ show, onHide, postingId, myPageInfo }) {
             {/* 태그 표시 */}
             {tagList.length == 0 ? (<div style={{marginTop:"10px", color:"blue", fontSize:"15px"}}>이미지에 탐지된 물체가 없습니다.</div>) : 
             (<div className="tag-list">
+              <div style={{color:"red", fontSize:"15px", fontWeight:"600", paddingBottom:"5px"}}>이미지에 탐지된 물체</div> 
               {tagList.map((tag, index) => (
                   <Badge key={index} variant="secondary" className="tag">
                       {tag}
@@ -100,7 +101,7 @@ function PostDetailModal({ show, onHide, postingId, myPageInfo }) {
                     icon={faHeart}
                     style={{ fontSize: "22px", cursor: "pointer" }}
                     onClick={() => {
-                      axios.post(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/favorite/${detailPostInfo.postId}`, {}, { headers: { Authorization: `Bearer ${jwtToken}`}})
+                      axios.post(`${process.env.REACT_APP_URL}/favorite/${detailPostInfo.postId}`, {}, { headers: { Authorization: `Bearer ${jwtToken}`}})
                       .then((res) => {console.log(res.data.result); detailPost();})
                       .catch((e) => console.log(e));
                     }}
@@ -110,7 +111,7 @@ function PostDetailModal({ show, onHide, postingId, myPageInfo }) {
                     icon={faHeartCircleCheck}
                     style={{ fontSize: "22px", cursor: "pointer" }}
                     onClick={() => {
-                      axios.delete(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/favorite/${detailPostInfo.postId}`, { headers: { Authorization: `Bearer ${jwtToken}`}})
+                      axios.delete(`${process.env.REACT_APP_URL}/favorite/${detailPostInfo.postId}`, { headers: { Authorization: `Bearer ${jwtToken}`}})
                       .then((res) => {console.log(res.data.result); detailPost();})
                       .catch((e) => alert(e.response.data.error));
                     }}
@@ -120,7 +121,7 @@ function PostDetailModal({ show, onHide, postingId, myPageInfo }) {
                 <span className="like-num">{detailPostInfo.favoriteCnt}명이 좋아합니다.</span>
               ) : (
                 <span className="like-num" style={{cursor:"pointer"}}onClick={() => {
-                  axios.get(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/favorite/${detailPostInfo.postId}`,
+                  axios.get(`${process.env.REACT_APP_URL}/favorite/${detailPostInfo.postId}`,
                   { headers: { Authorization: `Bearer ${jwtToken}`}})
                   .then((res) => {
                       setLikeList(res.data.like_list);
@@ -134,7 +135,7 @@ function PostDetailModal({ show, onHide, postingId, myPageInfo }) {
 
             {/* 댓글 개수 표시 */}
             <div className="comment-num" style={{cursor:"pointer"}} onClick={() => {
-              axios.get(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/comment/${detailPostInfo.postId}`,
+              axios.get(`${process.env.REACT_APP_URL}/comment/${detailPostInfo.postId}`,
               { headers: { Authorization: `Bearer ${jwtToken}`}})
               .then((res) => {
                   setCommentList(res.data.commentList);

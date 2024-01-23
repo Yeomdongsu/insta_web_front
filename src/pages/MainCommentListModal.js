@@ -42,7 +42,7 @@ function MainCommentListModal(props) {
                                     let confirm = window.confirm("삭제 하시겠습니까?");
                                     if (confirm == false) return;
                                     
-                                    axios.delete(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/comment/${comment.commentId}`,
+                                    axios.delete(`${process.env.REACT_APP_URL}/comment/${comment.commentId}`,
                                     { headers: { Authorization: `Bearer ${jwtToken}`}})
                                     .then((res) => {
                                     console.log(res.data);

@@ -13,7 +13,7 @@ function Post({ imageUrl, caption, postingId, myPageInfo }) {
   function deletePost(){
     let confirm = window.confirm("해당 게시글을 삭제하시겠습니까?");
     if (confirm == true){
-      axios.delete(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/posting/${postingId}`,  
+      axios.delete(`${process.env.REACT_APP_URL}/posting/${postingId}`,  
       { headers: { Authorization: `Bearer ${jwtToken}`}})
       .then((res) => {
         // console.log(res.data);

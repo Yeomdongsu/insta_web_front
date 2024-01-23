@@ -39,7 +39,7 @@ function Following(props) {
                     let confirm = window.confirm("팔로잉을 취소 하시겠습니까?");
                     if (confirm == false) return;
                     
-                    axios.delete(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/follow/${following.id}`,
+                    axios.delete(`${process.env.REACT_APP_URL}/follow/${following.id}`,
                     { headers: { Authorization: `Bearer ${jwtToken}`}})
                     .then((res) => {
                       props.followingList();

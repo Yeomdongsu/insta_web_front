@@ -33,11 +33,11 @@ function Main(){
         if (jwtToken == null) return nav("/");
         fetchData();
         fetchDataMain2();
-        console.log(1);
+        // console.log(1);
     }, [likeList, commentList]);
 
     function fetchDataMain2(){
-        axios.get("https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/user/login", 
+        axios.get(`${process.env.REACT_APP_URL}/user/login`, 
         { headers: { Authorization: `Bearer ${jwtToken}`}})
         .then((res) => {
             const userData = res.data.userList.map(user => ({
@@ -53,7 +53,7 @@ function Main(){
     }
 
     function fetchData(){
-        axios.get("https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/posting?offset=0&limit=25", 
+        axios.get(`${process.env.REACT_APP_URL}/posting?offset=0&limit=25`, 
         { headers: { Authorization: `Bearer ${jwtToken}`}})
         .then((res) => {
             const postData = res.data.items.map(item => ({
@@ -107,20 +107,20 @@ function Main(){
                                             <div className="my_emotion">
                                                 {post.isFavorite == 0 ? (
                                                     <FontAwesomeIcon icon={faHeart} style={{fontSize:"22px", paddingRight:"12px", cursor:"pointer"}} onClick={() => {
-                                                        axios.post(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/favorite/${post.postId}`, {}, { headers: { Authorization: `Bearer ${jwtToken}`}})
+                                                        axios.post(`${process.env.REACT_APP_URL}/favorite/${post.postId}`, {}, { headers: { Authorization: `Bearer ${jwtToken}`}})
                                                         .then((res) => {console.log(res.data.result); fetchData();})
                                                         .catch((e) => console.log(e));
                                                     }}/>
                                                 ) : (
                                                     <FontAwesomeIcon icon={faHeartCircleCheck} style={{fontSize:"22px", paddingRight:"12px", cursor:"pointer"}} onClick={() => {
-                                                        axios.delete(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/favorite/${post.postId}`, { headers: { Authorization: `Bearer ${jwtToken}`}})
+                                                        axios.delete(`${process.env.REACT_APP_URL}/favorite/${post.postId}`, { headers: { Authorization: `Bearer ${jwtToken}`}})
                                                         .then((res) => {console.log(res.data.result); fetchData();})
                                                         .catch((e) => alert(e.response.data.error));
                                                     }}/>
                                                 )}
                                                 
                                                 <FontAwesomeIcon icon={faComment} style={{fontSize:"22px", cursor:"pointer"}} onClick={() => {
-                                                    axios.get(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/comment/${post.postId}`,
+                                                    axios.get(`${process.env.REACT_APP_URL}/comment/${post.postId}`,
                                                     { headers: { Authorization: `Bearer ${jwtToken}`}})
                                                     .then((res) => {
                                                         setCommentList(res.data.commentList);
@@ -139,7 +139,7 @@ function Main(){
                                                 <span className="like_num txt_id">좋아요 {post.favoriteCnt}개</span>
                                             ) : (
                                                 <span className="like_num txt_id" onClick={() => {
-                                                    axios.get(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/favorite/${post.postId}`,
+                                                    axios.get(`${process.env.REACT_APP_URL}/favorite/${post.postId}`,
                                                     { headers: { Authorization: `Bearer ${jwtToken}`}})
                                                     .then((res) => {
                                                         setLikeList(res.data.like_list);
@@ -163,7 +163,7 @@ function Main(){
                                         <div id="listComment" className="list_comment">
                                             <p className="txt_comment">
                                                 <span className="txt_id" style={{color:"gray", fontSize:"14px"}} onClick={() => {
-                                                    axios.get(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/comment/${post.postId}`,
+                                                    axios.get(`${process.env.REACT_APP_URL}/comment/${post.postId}`,
                                                     { headers: { Authorization: `Bearer ${jwtToken}`}})
                                                     .then((res) => {
                                                         setCommentList(res.data.commentList);

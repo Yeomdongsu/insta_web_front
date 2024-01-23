@@ -30,7 +30,7 @@ function MyPagePostingModal(props) {
         formData.append("photo", file);
         formData.append("content", postContent);
 
-        axios.post("https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/posting", formData, 
+        axios.post(`${process.env.REACT_APP_URL}/posting`, formData, 
         { headers: { Authorization: `Bearer ${jwtToken}`}}) 
         .then((res) => {
             // console.log(res.data);

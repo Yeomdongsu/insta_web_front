@@ -22,7 +22,7 @@ function Main2(props){
                                     let confirm = window.confirm("팔로우 하시겠습니까?");
                                     if (confirm == false) return;
                 
-                                    axios.post(`https://dpj8rail59.execute-api.ap-northeast-2.amazonaws.com/follow/${user.id}`,
+                                    axios.post(`${process.env.REACT_APP_URL}/follow/${user.id}`,
                                     {}, { headers: { Authorization: `Bearer ${props.jwtToken}`}})
                                     .then((res) => {
                                       console.log(res.data);

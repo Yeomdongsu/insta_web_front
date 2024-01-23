@@ -28,6 +28,7 @@ const SocialKakao =()=>{
                 localStorage.setItem("jwtToken", jwtToken);
                 localStorage.setItem("nickname", res.data.nickname);
                 localStorage.setItem("id", res.data.id);
+                localStorage.setItem("image", data.profile.properties.thumbnail_image);
                 alert("로그인 성공!");
                 nav("/main");
             } else if (res.data.nickname == null){
@@ -38,6 +39,7 @@ const SocialKakao =()=>{
                 localStorage.setItem("jwtToken", jwtToken);
                 localStorage.setItem("nickname", data.profile.properties.nickname);
                 localStorage.setItem("id", res.data.id);
+                localStorage.setItem("image", data.profile.properties.thumbnail_image);
                 alert("로그인 성공!");
                 nav("/main");
             }
@@ -78,15 +80,6 @@ const SocialKakao =()=>{
                     marginTop:"10px",
                 }}
             >카카오 계정으로 로그인</KakaoLogin>
-
-            {/* <button onClick={() => {
-                let access_token = localStorage.getItem("access_token");
-                axios.post(`https://kapi.kakao.com/v1/user/unlink`, {}, { headers: {Authorization: `Bearer ${access_token}`}})
-                .then((res) => {
-                    console.log(res);
-                    localStorage.clear();
-                }).catch((e) => console.log(e));
-            }}>로그아웃</button> */}
         </>
     )
 }
