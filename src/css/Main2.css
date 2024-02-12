@@ -4,6 +4,8 @@
     width: 283px;
     position: fixed;
     margin-left: 515px;
+    overflow-y: auto;
+    max-height: calc(100vh - 10.4vh);
 }
 
 .recommend{
