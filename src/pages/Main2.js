@@ -11,14 +11,14 @@ function Main2(props){
     return (
         <div style={{width:"100%"}}>
             <div className="div_fix">
-                <h4 style={{ margin:"0 0 20px 0", color:"red"}}>회원님을 위한 추천</h4>
+                <h4 style={{ margin:"0 0 20px 0", color:"#669966"}}>회원님을 위한 추천</h4>
                 {
                     props.userList.map((user, i) => {
                         return (
                             <div className="recommend" key={i}>
                                 <FontAwesomeIcon icon={faCircleUser} style={{fontSize:"23px"}}/>
                                 <span className="user_id" style={{cursor:"pointer"}} onClick={() => nav(`/myPage/${user.id}`)}>{user.nickname}</span>
-                                <span style={{color:"blue", fontSize:"15px"}} onClick={() => {
+                                <span style={{color:"blue", fontSize:"15px", cursor:"pointer"}} onClick={() => {
                                     let confirm = window.confirm("팔로우 하시겠습니까?");
                                     if (confirm == false) return;
                 
