@@ -14,43 +14,37 @@ const SocialKakao =()=>{
     
         localStorage.setItem("access_token", access_token);
 
-        let confirm = window.confirm("카카오 계정으로 회원가입 하시겠습니까?");
-        if (confirm == false) return;
+        // let confirm = window.confirm("카카오 계정으로 회원가입 하시겠습니까?");
+        // if (confirm == false) return;
 
         axios.post(`${process.env.REACT_APP_URL}/user/kakao/register`, {nickname:data.profile.properties.nickname})
         .then((res) => {
             console.log(res.data);
             if (res.data.nickname != null){
-                let confirm = window.confirm("이미 가입된 계정입니다. 로그인 하시겠습니까?");
-                if (confirm == false) return;
+                // let confirm = window.confirm("이미 가입된 계정입니다. 로그인 하시겠습니까?");
+                // if (confirm == false) return;
 
                 const jwtToken = res.data.access_token;
                 localStorage.setItem("jwtToken", jwtToken);
                 localStorage.setItem("nickname", res.data.nickname);
                 localStorage.setItem("id", res.data.id);
                 localStorage.setItem("image", data.profile.properties.thumbnail_image);
-                alert("로그인 성공!");
+                // alert("로그인 성공!");
                 nav("/main");
             } else if (res.data.nickname == null){
-                let confirm = window.confirm("카카오 계정으로 회원가입 되셨습니다. 로그인 하시겠습니까?");
-                if (confirm == false) return;
+                // let confirm = window.confirm("카카오 계정으로 회원가입 되셨습니다. 로그인 하시겠습니까?");
+                // if (confirm == false) return;
 
                 const jwtToken = res.data.access_token;
                 localStorage.setItem("jwtToken", jwtToken);
                 localStorage.setItem("nickname", data.profile.properties.nickname);
                 localStorage.setItem("id", res.data.id);
                 localStorage.setItem("image", data.profile.properties.thumbnail_image);
-                alert("로그인 성공!");
+                // alert("로그인 성공!");
                 nav("/main");
             }
         })
         .catch((e) => console.log(e));
-
-        // axios.get(`https://kapi.kakao.com/v2/user/me`, { headers: {Authorization: `Bearer ${access_token}`}})
-        // .then((res) => {
-        //     console.log(res);
-        // })
-        // .catch((e) => console.log(e));
     }
 
     const kakaoOnFailure = (error) => {

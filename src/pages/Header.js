@@ -42,7 +42,7 @@ function Header(){
                                 { headers: { Authorization: `Bearer ${jwtToken}`}})
                                 .then((res) => {
                                     localStorage.clear();
-                                    alert("로그아웃 되셨습니다.");
+                                    // alert("로그아웃 되셨습니다.");
                                     nav("/");
                                 })
                                 .catch((e) => console.log(e));
@@ -61,7 +61,7 @@ function Header(){
                                 .then((res) => {
                                     // console.log(res);
                                     localStorage.clear();
-                                    alert("로그아웃 되셨습니다.");
+                                    // alert("로그아웃 되셨습니다.");
                                     nav("/");
                                 })
                                 .catch((e) => console.log(e));

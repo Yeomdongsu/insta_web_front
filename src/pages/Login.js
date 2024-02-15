@@ -86,7 +86,7 @@ function Login(){
             localStorage.setItem("jwtToken", jwtToken);
             localStorage.setItem("nickname", res.data.nickname);
             localStorage.setItem("id", res.data.id);
-            alert("로그인 성공!");
+            // alert("로그인 성공!");
             nav("/main");
         })
         .catch((e) => {
