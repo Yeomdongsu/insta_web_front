@@ -48,7 +48,7 @@ function MainCommentListModal(props) {
                                     console.log(res.data);
                                     const updatedCommentList = props.commentList.filter((c) => c.commentId !== comment.commentId);
                                     props.setCommentList(updatedCommentList);
-                                    alert("삭제되었습니다.");
+                                    // alert("삭제되었습니다.");
                                     })
                                     .catch((e) => console.log(e));
                                 }}>삭제</button>

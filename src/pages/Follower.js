@@ -37,8 +37,8 @@ function Follower(props) {
                         return alert("본인 계정만 가능합니다.");
                       }
 
-                      let confirm = window.confirm("팔로우 하시겠습니까?");
-                      if (confirm == false) return;
+                      // let confirm = window.confirm("팔로우 하시겠습니까?");
+                      // if (confirm == false) return;
 
                       axios.post(`${process.env.REACT_APP_URL}/follow/${follower.id}`,
                       {}, { headers: { Authorization: `Bearer ${jwtToken}`}})
@@ -53,8 +53,8 @@ function Follower(props) {
                         return alert("본인 계정만 가능합니다.");
                       }
                       
-                      let confirm = window.confirm("팔로잉을 취소 하시겠습니까?");
-                      if (confirm == false) return;
+                      // let confirm = window.confirm("팔로잉을 취소 하시겠습니까?");
+                      // if (confirm == false) return;
                       
                       axios.delete(`${process.env.REACT_APP_URL}/follow/${follower.id}`,
                       { headers: { Authorization: `Bearer ${jwtToken}`}})

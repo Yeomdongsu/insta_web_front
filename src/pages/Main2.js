@@ -19,8 +19,8 @@ function Main2(props){
                                 <FontAwesomeIcon icon={faCircleUser} style={{fontSize:"23px"}}/>
                                 <span className="user_id" style={{cursor:"pointer"}} onClick={() => nav(`/myPage/${user.id}`)}>{user.nickname}</span>
                                 <span style={{color:"blue", fontSize:"15px", cursor:"pointer"}} onClick={() => {
-                                    let confirm = window.confirm("팔로우 하시겠습니까?");
-                                    if (confirm == false) return;
+                                    // let confirm = window.confirm("팔로우 하시겠습니까?");
+                                    // if (confirm == false) return;
                 
                                     axios.post(`${process.env.REACT_APP_URL}/follow/${user.id}`,
                                     {}, { headers: { Authorization: `Bearer ${props.jwtToken}`}})

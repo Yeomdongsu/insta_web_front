@@ -24,8 +24,8 @@ function MyPagePostingModal(props) {
         return alert("사진과 내용 모두 입력하세요.");
       }
 
-      let confirm = window.confirm("작성하시겠습니까?");
-      if (confirm == true){
+      // let confirm = window.confirm("작성하시겠습니까?");
+      // if (confirm == true){
         const formData = new FormData();
         formData.append("photo", file);
         formData.append("content", postContent);
@@ -34,13 +34,13 @@ function MyPagePostingModal(props) {
         { headers: { Authorization: `Bearer ${jwtToken}`}}) 
         .then((res) => {
             // console.log(res.data);
-            alert("글이 작성되었습니다.");
+            // alert("글이 작성되었습니다.");
             props.myPageInfo();
         })
         .catch((e) => {
             console.log(e);
         });
-      }
+      // }
 
       props.onHide();
     };

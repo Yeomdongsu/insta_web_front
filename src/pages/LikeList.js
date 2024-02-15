@@ -32,8 +32,8 @@ function LikeList(props) {
                 <span style={{margin:"0 10px 0 30px", fontSize:"17px", flex:"1", textAlign:"center", cursor:"pointer"}} onClick={() => {props.onHide(); nav(`/myPage/${user.userId}`); }}>{user.nickname}</span>
                 {user.isFollow == 0 ? (
                   <span style={{color:"blue", fontSize:"15px", cursor:"pointer"}} onClick={() => {
-                    let confirm = window.confirm("팔로우 하시겠습니까?");
-                    if (confirm == false) return;
+                    // let confirm = window.confirm("팔로우 하시겠습니까?");
+                    // if (confirm == false) return;
 
                     axios.post(`${process.env.REACT_APP_URL}/follow/${user.userId}`,
                     {}, { headers: { Authorization: `Bearer ${props.jwtToken}`}})
@@ -47,8 +47,8 @@ function LikeList(props) {
                   }}>팔로우</span>
                 ) : (
                   <span style={{color:"red", fontSize:"15px", cursor:"pointer"}} onClick={() => {
-                    let confirm = window.confirm("팔로잉을 취소 하시겠습니까?");
-                    if (confirm == false) return;
+                    // let confirm = window.confirm("팔로잉을 취소 하시겠습니까?");
+                    // if (confirm == false) return;
                     
                     axios.delete(`${process.env.REACT_APP_URL}/follow/${user.userId}`,
                     { headers: { Authorization: `Bearer ${props.jwtToken}`}})

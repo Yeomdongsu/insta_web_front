@@ -17,7 +17,7 @@ function Post({ imageUrl, caption, postingId, myPageInfo }) {
       { headers: { Authorization: `Bearer ${jwtToken}`}})
       .then((res) => {
         // console.log(res.data);
-        window.alert("해당 글이 삭제되었습니다.");
+        // window.alert("해당 글이 삭제되었습니다.");
         myPageInfo();
       })
       .catch((e) => console.log(e));

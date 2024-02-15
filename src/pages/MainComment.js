@@ -12,8 +12,8 @@ function MainComment(props) {
         <Button variant="dark" style={{width:"60px", height:"35px", margin:"0 0 4px 5px", padding:"5px"}} onClick={() => {
             if (comment == "") return window.alert("내용을 입력해주세요."); 
             
-            let confirm = window.confirm("작성하시겠습니까?");
-            if (confirm == true){
+            // let confirm = window.confirm("작성하시겠습니까?");
+            // if (confirm == true){
                 
                 axios.post(`${process.env.REACT_APP_URL}/comment/${props.postId}`, 
                 { postComment: comment }, { headers: { Authorization: `Bearer ${props.jwtToken}`}})
@@ -23,9 +23,9 @@ function MainComment(props) {
                 })
                 .catch((e) => console.log(e));
 
-                window.alert("작성되었습니다."); 
+                // window.alert("작성되었습니다."); 
                 props.setCommentModal(!props.commentModal);
-            }
+            // }
         }}>작성</Button>
     </div>
   );

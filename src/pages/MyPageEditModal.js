@@ -52,7 +52,7 @@ function MyPageEditModal(props) {
             { headers: { Authorization: `Bearer ${jwtToken}`}})
             .then((res) => {
                 // console.log(res.data);
-                window.alert("닉네임이 수정되었습니다.");
+                // window.alert("닉네임이 수정되었습니다.");
                 localStorage.setItem("nickname", updateNick.nickname);
                 props.myPageInfo();
                 props.onHide();
