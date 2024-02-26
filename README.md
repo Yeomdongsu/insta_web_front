@@ -25,5 +25,4 @@ Dongsutagram은 인스타그램 앱을 클론 코딩한 웹 플랫폼입니다.
 ![image](https://github.com/Yeomdongsu/insta_web_front/assets/117874997/dc6e4c84-dc0f-4cb9-b5a9-558203cee81e)<br><br><br><br>
 
 ## [ Web 실행 Click🔽] <br><br>
-
-## [![image](https://github.com/Yeomdongsu/insta_web_front/assets/117874997/8a3c3405-e3e4-4398-b35b-2f04a3c10f27)](http://dzsx20-insta-web.s3-website.ap-northeast-2.amazonaws.com/)
+[![image](https://github.com/Yeomdongsu/insta_web_front/assets/117874997/8a3c3405-e3e4-4398-b35b-2f04a3c10f27)](http://dzsx20-insta-web.s3-website.ap-northeast-2.amazonaws.com/)
