@@ -18,10 +18,10 @@ Dongsutagram은 인스타그램 앱을 클론 코딩한 웹 플랫폼입니다.
 ## [프로젝트 개발 순서]
 * 화면기획서(생략) -≫ DB 설계 -≫ rest api 설계, 개발 -≫ postman으로 테스트 -≫ 서버 Docker image로 배포 -≫ Git Actions를 이용한 배포 자동화 -≫ 웹에서 배포한 서버로 통신 -≫ 웹은 S3 정적 웹 호스팅 이용하여 배포 <br><br><br><br>
 
-## [ [ERD 구성 보기](https://www.erdcloud.com/d/qhoGo5ockkJvrPFha)🔽 ]<br><br>
+## [ [DB 테이블 ERD](https://www.erdcloud.com/d/qhoGo5ockkJvrPFha)🔽 ]<br><br>
 ![image](https://github.com/Yeomdongsu/insta_web_front/assets/117874997/2b007a64-497f-4562-9901-75fd480bf974)<br><br><br><br>
 
-## [ [테이블 명세서 보기](https://documenter.getpostman.com/view/31597978/2sA2r813Tv)🔽 ]<br><br>
+## [ [API 명세서 보기](https://documenter.getpostman.com/view/31597978/2sA2r813Tv)🔽 ]<br><br>
 ![image](https://github.com/Yeomdongsu/insta_web_front/assets/117874997/dc6e4c84-dc0f-4cb9-b5a9-558203cee81e)<br><br><br><br>
 
 ## [ Web 실행 Click🔽] <br><br>
